@@ -1,0 +1,8 @@
+[submodule "Z80"]
+	path = Z80
+	url = git@github.com:notwendig/z80.git
+	branch = master
+[submodule "qvintage"]
+	path = qvintage
+	url = git@github.com:notwendig/QtVintage.git
+	branch = main

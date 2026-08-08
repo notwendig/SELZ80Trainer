@@ -1,0 +1,4523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1169</width>
+    <height>658</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SEL Z80 Trainer</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	 background: #216480;
+ }</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>464</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout" rowstretch="1,1,1,1,1,5,5,5,5,5,1,1" columnstretch="3,3,3,3,1,2,2,2,2,1,2,2,2,2,1,5,5,5,5,1,5,5,5,5" rowminimumheight="0,0,0,0,0,0,0,0,0,0,0,0">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <item row="9" column="16">
+       <widget class="SWITCH" name="switch_EN">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>EN</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>30</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="13">
+       <widget class="QLabel" name="D0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="22" rowspan="4">
+       <widget class="SEG7" name="Display7_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="18">
+       <widget class="SWITCH" name="switch_MM">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>MM</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>4</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="6">
+       <widget class="QLabel" name="D6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D6</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="17">
+       <widget class="QLabel" name="K5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K5</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="2">
+       <widget class="SEG7" name="Display7U_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777214</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="8">
+       <widget class="LED" name="led_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="18">
+       <widget class="QLabel" name="K4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K4</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="23">
+       <widget class="SWITCH" name="switch_B">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>SP
+B</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>8</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="15">
+       <widget class="SWITCH" name="switch_EX">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>EX</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>15</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="16">
+       <widget class="SWITCH" name="switch_SB">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>SS</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>6</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="15">
+       <widget class="SWITCH" name="switch_RS">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>RS</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>7</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="LED" name="led_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="12">
+       <widget class="QLabel" name="D1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="LED" name="led_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" rowspan="2">
+       <widget class="SEG7" name="Display7U_0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777214</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="13">
+       <widget class="LED" name="led_0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="10">
+       <widget class="QLabel" name="D3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D3</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="15" rowspan="4">
+       <widget class="SEG7" name="Display7_0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="state">
+         <bool>true</bool>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="12">
+       <widget class="LED" name="led_1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" rowspan="2">
+       <widget class="SEG7" name="Display7U_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777214</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="17" rowspan="4">
+       <widget class="SEG7" name="Display7_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="13">
+       <widget class="QLabel" name="B0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>B0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="LED" name="led_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="5">
+       <widget class="QLabel" name="A3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>A3</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="11">
+       <widget class="LED" name="led_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" rowspan="2">
+       <widget class="SEG7" name="Display7U_1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777214</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="22">
+       <widget class="SWITCH" name="switch_A">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>PC
+A</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>9</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="12">
+       <widget class="QLabel" name="B1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>B1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="16" rowspan="4">
+       <widget class="SEG7" name="Display7_1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="11">
+       <widget class="QLabel" name="B2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>B2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="22">
+       <widget class="SWITCH" name="switch_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>DE
+2</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>25</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="20" rowspan="4">
+       <widget class="SEG7" name="Display7_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="18" rowspan="4">
+       <widget class="SEG7" name="Display7_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="6">
+       <widget class="QLabel" name="A2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>A2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="20">
+       <widget class="SWITCH" name="switch_0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>AF
+0</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>27</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="23">
+       <widget class="SWITCH" name="switch_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>HL
+3</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>24</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="19">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="20">
+       <widget class="SWITCH" name="switch_8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>IX
+8</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>11</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="20">
+       <widget class="SWITCH" name="switch_C">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>IS
+C</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>3</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="LED" name="led_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="state">
+         <bool>false</bool>
+        </property>
+        <property name="flashing">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="21">
+       <widget class="SWITCH" name="switch_9">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>IY
+9</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>10</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" rowspan="2">
+       <widget class="SEG7" name="Display7U_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777214</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QLabel" name="D7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D7</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="23">
+       <widget class="SWITCH" name="switch_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>HL'
+7</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>16</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="21" rowspan="4">
+       <widget class="SEG7" name="Display7_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="17">
+       <widget class="SWITCH" name="switch_SUB">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>-</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>21</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="8">
+       <widget class="QLabel" name="A0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>A0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="17">
+       <widget class="SWITCH" name="switch_TW">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>TW</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>13</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="14">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="9" column="17">
+       <widget class="SWITCH" name="switch_SA">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>SA</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>29</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" rowspan="2">
+       <widget class="SEG7" name="Display7U_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777214</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="15">
+       <widget class="SWITCH" name="switch_RG">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>RG</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>31</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="23">
+       <widget class="QLabel" name="K0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="21">
+       <widget class="SWITCH" name="switch_1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>BC
+1</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>26</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="21">
+       <widget class="QLabel" name="K2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="8">
+       <widget class="QLabel" name="D4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D4</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="20">
+       <widget class="QLabel" name="K3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K3</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="21">
+       <widget class="SWITCH" name="switch_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>BC'
+5</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>18</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="18">
+       <widget class="SWITCH" name="switch_ADD">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>+</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>20</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="17">
+       <widget class="SWITCH" name="switch_RN">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>RN</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>5</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QLabel" name="D5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D5</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="18">
+       <widget class="SWITCH" name="switch_TR">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>TR</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>12</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="23">
+       <widget class="SWITCH" name="switch_F">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>
+F</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>0</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="16">
+       <widget class="SWITCH" name="switch_IN">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>IN</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>22</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="20">
+       <widget class="SWITCH" name="switch_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>AF'
+4</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>19</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="18">
+       <widget class="SWITCH" name="switch_SD">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>SD</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>28</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="16">
+       <widget class="QLabel" name="K6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K6</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="22">
+       <widget class="SWITCH" name="switch_E">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>FL'
+E</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>1</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="7">
+       <widget class="QLabel" name="A1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>A1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="22">
+       <widget class="SWITCH" name="switch_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>DE'
+6</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>17</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="21">
+       <widget class="SWITCH" name="switch_D">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>FL
+D</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>2</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="10">
+       <widget class="QLabel" name="B3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>B3</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="11">
+       <widget class="QLabel" name="D2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>D2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="16">
+       <widget class="SWITCH" name="switch_BP">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>BP</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>14</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="23" rowspan="4">
+       <widget class="SEG7" name="Display7_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>2</width>
+          <height>3</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SEG7{
+	 background: #900505;
+ }</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="color">
+         <color alpha="247">
+          <red>249</red>
+          <green>12</green>
+          <blue>5</blue>
+         </color>
+        </property>
+        <property name="backr">
+         <color alpha="105">
+          <red>185</red>
+          <green>17</green>
+          <blue>17</blue>
+         </color>
+        </property>
+        <property name="diameter" stdset="0">
+         <double>7.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="15">
+       <widget class="QLabel" name="K7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K7</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="15">
+       <widget class="SWITCH" name="switch_RL">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>1</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">SWITCH{ background: #363A38; }</string>
+        </property>
+        <property name="text">
+         <string>RL</string>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>23</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="22">
+       <widget class="QLabel" name="K1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>K1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="5" rowspan="4" colspan="4">
+       <widget class="QLabel" name="T1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Monospace</family>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="10" rowspan="4" colspan="4">
+       <widget class="QLabel" name="T0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Monospace</family>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0" rowspan="2" colspan="4">
+       <widget class="QLabel" name="SYS">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>SYSTEM 0</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="15">
+       <widget class="QLabel" name="L7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L7</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="16">
+       <widget class="QLabel" name="L6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L6</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="17">
+       <widget class="QLabel" name="L5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L5</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="18">
+       <widget class="QLabel" name="L4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L4</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="20">
+       <widget class="QLabel" name="L3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L3</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="21">
+       <widget class="QLabel" name="L2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L2</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="22">
+       <widget class="QLabel" name="L1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L1</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="23">
+       <widget class="QLabel" name="L0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+          <italic>true</italic>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="text">
+         <string>L0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="5">
+       <widget class="SWITCH2" name="shiftsw_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>7</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="6">
+       <widget class="SWITCH2" name="shiftsw_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>6</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="7">
+       <widget class="SWITCH2" name="shiftsw_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>5</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="8">
+       <widget class="SWITCH2" name="shiftsw_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>4</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="10">
+       <widget class="SWITCH2" name="shiftsw_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>3</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="11">
+       <widget class="SWITCH2" name="shiftsw_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>2</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="12">
+       <widget class="SWITCH2" name="shiftsw_1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>1</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="13">
+       <widget class="SWITCH2" name="shiftsw_0">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sizeIncrement">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>1</width>
+          <height>2</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="toolTip">
+         <string>Simple Pushbutton.</string>
+        </property>
+        <property name="whatsThis">
+         <string>An Bushbutton with Label and Sublabel.</string>
+        </property>
+        <property name="styleSheet">
+         <string>SWITCH2{ background: #363A38; }</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="keycode" stdset="0">
+         <UInt>0</UInt>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5" rowspan="4" colspan="9">
+       <widget class="QLabel" name="sheet">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" rowspan="4" colspan="4">
+       <widget class="QLabel" name="logo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="lineWidth">
+         <number>0</number>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="resources.qrc">:/pictures/logo.png</pixmap>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1169</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Datei">
+    <property name="title">
+     <string>&amp;Datei</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuSystem">
+    <property name="title">
+     <string>System</string>
+    </property>
+    <addaction name="actionSystem_0"/>
+    <addaction name="actionSystem_1"/>
+    <addaction name="actionSystem_2"/>
+    <addaction name="actionSystem_3"/>
+    <addaction name="separator"/>
+    <addaction name="action_Camel_Forth"/>
+    <addaction name="separator"/>
+    <addaction name="actionSystem_4"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>?</string>
+    </property>
+    <addaction name="action_Manual"/>
+   </widget>
+   <addaction name="menu_Datei"/>
+   <addaction name="menuSystem"/>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSystem_0">
+   <property name="text">
+    <string>System &amp;0</string>
+   </property>
+  </action>
+  <action name="actionSystem_1">
+   <property name="text">
+    <string>System &amp;1</string>
+   </property>
+  </action>
+  <action name="actionSystem_2">
+   <property name="text">
+    <string>System &amp;2</string>
+   </property>
+  </action>
+  <action name="actionSystem_3">
+   <property name="text">
+    <string>System &amp;3</string>
+   </property>
+  </action>
+  <action name="action_Camel_Forth">
+   <property name="text">
+    <string>&amp;Camel-Forth</string>
+   </property>
+  </action>
+  <action name="actionSystem_4">
+   <property name="text">
+    <string>System &amp;Reset</string>
+   </property>
+  </action>
+  <action name="action_Manual">
+   <property name="text">
+    <string>&amp;Manual</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SEG7</class>
+   <extends>QFrame</extends>
+   <header>SEG7/SEG7.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LED</class>
+   <extends>QWidget</extends>
+   <header>LED/LED.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SWITCH</class>
+   <extends>QWidget</extends>
+   <header>SWITCH/SWITCH.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SWITCH2</class>
+   <extends>QWidget</extends>
+   <header>SWITCH2/SWITCH2.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>switch_0</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>831</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>963</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_3</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1029</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_4</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>831</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_6</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>963</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_7</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1029</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_8</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>831</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_9</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_A</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>963</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_B</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1029</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_C</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>831</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_D</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_E</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>963</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_F</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1029</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_RS</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>560</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_SB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>626</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_RN</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>692</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_MM</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_EX</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>560</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_BP</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>626</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_TW</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>692</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_TR</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>413</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_RL</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>560</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_IN</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>626</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_SUB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>692</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_ADD</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_RG</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>560</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_EN</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>626</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_SA</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>692</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>switch_SD</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>key(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_0</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>487</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>451</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>415</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_3</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>379</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_4</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>335</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_5</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>299</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_6</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>263</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>shiftsw_7</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>iswitch(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>651</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSystem_0</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setSystem(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>482</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSystem_1</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setSystem(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>482</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSystem_2</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setSystem(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>482</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Camel_Forth</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setForth(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>521</x>
+     <y>332</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSystem_3</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setSystem(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>605</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSystem_4</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setSystem(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>605</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Manual</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>manual(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>584</x>
+     <y>332</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>key(bool)</slot>
+  <slot>iswitch(bool)</slot>
+  <slot>setSystem(bool)</slot>
+  <slot>setForth(bool)</slot>
+  <slot>manual(bool)</slot>
+ </slots>
+</ui>

@@ -1,0 +1,99 @@
+<RCC>
+	<qresource prefix="/rom">
+		<file alias="monitor.bin">SELRom.bin</file>
+		<file alias="forth.bin">camel80.bin</file>
+	</qresource>
+	<qresource prefix="/pictures">
+		<file alias="logo.png">SELLogo.png</file>
+		<file alias="icone.png">SELIcon.png</file>
+		<file>PowerOn.png</file>
+		<file>PowerOff.png</file>
+		<file>System0.png</file>
+		<file>System1.png</file>
+		<file>System2.png</file>
+		<file>System3.png</file>
+		<file>System4.png</file>
+	</qresource>
+	<qresource prefix="/help">
+		<file>manual/1.png</file>
+		<file>manual/2.png</file>
+		<file>manual/3.png</file>
+		<file>manual/4.png</file>
+		<file>manual/5.png</file>
+		<file>manual/6.png</file>
+		<file>manual/7.png</file>
+		<file>manual/8.png</file>
+		<file>manual/9.png</file>
+		<file>manual/11.png</file>
+		<file>manual/12.png</file>
+		<file>manual/13.png</file>
+		<file>manual/14.png</file>
+		<file>manual/15.png</file>
+		<file>manual/16.png</file>
+		<file>manual/17.png</file>
+		<file>manual/18.png</file>
+		<file>manual/19.png</file>
+		<file>manual/10.png</file>
+		<file>manual/21.png</file>
+		<file>manual/22.png</file>
+		<file>manual/23.png</file>
+		<file>manual/24.png</file>
+		<file>manual/25.png</file>
+		<file>manual/26.png</file>
+		<file>manual/27.png</file>
+		<file>manual/28.png</file>
+		<file>manual/29.png</file>
+		<file>manual/20.png</file>
+		<file>manual/31.png</file>
+		<file>manual/32.png</file>
+		<file>manual/33.png</file>
+		<file>manual/34.png</file>
+		<file>manual/35.png</file>
+		<file>manual/36.png</file>
+		<file>manual/37.png</file>
+		<file>manual/38.png</file>
+		<file>manual/39.png</file>
+		<file>manual/30.png</file>
+		<file>manual/41.png</file>
+		<file>manual/42.png</file>
+		<file>manual/43.png</file>
+		<file>manual/44.png</file>
+		<file>manual/45.png</file>
+		<file>manual/46.png</file>
+		<file>manual/47.png</file>
+		<file>manual/48.png</file>
+		<file>manual/49.png</file>
+		<file>manual/40.png</file>
+		<file>manual/51.png</file>
+		<file>manual/52.png</file>
+		<file>manual/53.png</file>
+		<file>manual/54.png</file>
+		<file>manual/55.png</file>
+		<file>manual/56.png</file>
+		<file>manual/57.png</file>
+		<file>manual/58.png</file>
+		<file>manual/59.png</file>
+		<file>manual/50.png</file>
+		<file>manual/61.png</file>
+		<file>manual/62.png</file>
+		<file>manual/63.png</file>
+		<file>manual/64.png</file>
+		<file>manual/65.png</file>
+		<file>manual/66.png</file>
+		<file>manual/67.png</file>
+		<file>manual/68.png</file>
+		<file>manual/69.png</file>
+		<file>manual/60.png</file>
+		<file>manual/71.png</file>
+		<file>manual/72.png</file>
+		<file>manual/73.png</file>
+		<file>manual/74.png</file>
+		<file>manual/75.png</file>
+		<file>manual/76.png</file>
+		<file>manual/77.png</file>
+		<file>manual/78.png</file>
+		<file>manual/79.png</file>
+		<file>manual/70.png</file>
+		<file>manual/80.png</file>
+	</qresource>
+</RCC>

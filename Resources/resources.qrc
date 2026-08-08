@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/rom">
+        <file alias="monitor.bin">SELRom.bin</file>
+    </qresource>
+    <qresource prefix="/pictures">
+        <file alias="logo.png">SELLogo.png</file>
+        <file alias="icone.png">SELIcon.png</file>
+        <file>PowerOn.png</file>
+        <file>PowerOff.png</file>
+        <file>System0.png</file>
+        <file>System1.png</file>
+        <file>System2.png</file>
+        <file>System3.png</file>
+        <file>System4.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,110 @@
+
+;
+; +---------------------------------------------------------------+
+; |	      Copyright	(c) 2015 NadiSoft <JSievers@NadiSoft.de>      |
+; |		    Juergen Sievers, NadiSoft  GPL                        |
+; +---------------------------------------------------------------+
+;
+
+; File Name   :	camelSEL.azm
+; Format      :	Z80 Assembler
+
+; Processor	  : z80
+; Target assembler: zmac
+
+; =================================================================
+
+; camel forth extension for the SEL Z80 Trainer
+
+        ; -----
+        db seg7E|seg7F|seg7A|seg7B|seg7C|seg7D      ; 0
+        db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C|seg7D; 8
+        db seg7G                                    ; -
+        db seg7E|seg7F|seg7G|seg7C                  ; h
+        db seg7E|seg7F|seg7G                        ; t
+        db seg7E|seg7G                              ; r
+        db seg7E|seg7G|seg7C|seg7D                  ; o
+intro:  db seg7E|seg7F|seg7G|seg7A                  ; F
+selinit:ld hl,intro
+        xor a
+        call sendds_1
+        ret
+; ---------------------------------------------
+
+; Set LEDs to c
+;   c --
+        head LEDS,LEDS,docolon
+	DW LIT, BinIO_PC, PCSTORE, EXIT
+
+; Set GetSwitch to c
+;   -- c
+        head SWITCH,SWITCH,docolon
+	DW LIT, BinIO_PC, PCFETCH, EXIT
+
+; SEL Disply byte c on position p (0-3)
+;   c p --
+        head DISPLAYB,DISPLAYB,docode
+	ex	(sp),hl	; x
+	ld	a,l
+	call	senda ; c position, a byte
+	pop	hl
+	pop	bc
+	next
+
+; SEL Disply word n on position p (0 rigth 1 left)
+;   n p --
+    head DISPLAYW,DISPLAYW,docode
+    ex (sp),hl	; x
+    call	sendhl
+    pop	hl
+    pop	bc
+    next
+
+; SEL GetByte
+;    -- c
+head GETHEXB,GETHEXB,docode
+    push bc
+    call gethx
+    ld c,a
+    ld b,0
+    next
+
+; SEL GetByte
+;    -- c
+head GETHEXW,GETHEXW,docode
+    push bc
+    push hl
+    call getadr
+    ld  b,h
+    ld  c,l
+    pop hl
+    next
+
+; SEL Delay n x 5msec
+;    n --
+head DELAY5,DELAY5,docode
+    ld b,c
+    call delay_1
+    pop bc
+    next
+
+; SEL convert digit 7 segment
+;    c -- 7-seg
+head CONV7,CONV7,docode
+    ld a,c
+    call conv7seg
+    ld c,a
+    ld b,0
+    next
+
+; SEL keypress status
+;    -- flag
+head KEYST,KEYST,docode
+    push bc
+    call keystat
+    jz pad1
+    ld  a,-1
+pad1:ld b,a
+    ld c,a
+    next
+
