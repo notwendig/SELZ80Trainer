@@ -1,0 +1,75 @@
+name: Bug report
+description: Report a reproducible defect in SELZ80Trainer
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Please provide enough detail to reproduce it.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: What happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Configure with ...
+        2. Build with ...
+        3. Start ...
+        4. Select ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: Fedora 44, Ubuntu 24.04, ...
+    validations:
+      required: true
+
+  - type: input
+    id: qt
+    attributes:
+      label: Qt version
+      placeholder: "6.x"
+
+  - type: input
+    id: compiler
+    attributes:
+      label: Compiler
+      placeholder: "GCC 16.1.1"
+
+  - type: input
+    id: cmake
+    attributes:
+      label: CMake version
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      render: shell
+
+  - type: checkboxes
+    id: clean-build
+    attributes:
+      label: Clean build
+      options:
+        - label: I reproduced the problem after configuring a fresh build directory.

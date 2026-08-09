@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    name: Linux / Qt 6 / GCC
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends \
+            bison \
+            cmake \
+            gcc \
+            g++ \
+            git \
+            make \
+            ninja-build \
+            python3 \
+            qt6-base-dev \
+            qt6-tools-dev \
+            qt6-tools-dev-tools
+
+      - name: Install zmac
+        run: |
+          chmod +x scripts/ci/install_zmac.sh
+          scripts/ci/install_zmac.sh
+
+      - name: Validate Python generator
+        run: python3 -m py_compile scripts/generate_selrom_symbols.py
+
+      - name: Configure
+        run: cmake --preset release
+
+      - name: Build
+        run: cmake --build --preset release
+
+      - name: Verify generated ROM outputs
+        run: |
+          test -f build/release/roms/SELRom.cim
+          test -f build/release/roms/SELRom.lst
+          test -f build/release/roms/SELRom.bin
+          test -f Resources/SELRom.bin
+          test -f ROMS/SELRom.inc
+          test -f ROMS/SELRom.h
+
+      - name: Install staging tree
+        run: |
+          cmake --install build/release \
+            --prefix "${GITHUB_WORKSPACE}/stage"
+
+      - name: Upload install tree
+        uses: actions/upload-artifact@v7
+        with:
+          name: SELZ80Trainer-linux-${{ github.sha }}
+          path: stage/
+          if-no-files-found: error
+          retention-days: 14
