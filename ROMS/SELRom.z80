@@ -1,4 +1,19 @@
+; ---------------------------------------------------------------------------
+; SEL memory map
+; ---------------------------------------------------------------------------
 
+SELROM0START   equ 0000h
+SELRAMSTART    equ 1000h
+SELR1M0START   equ 1800h
+SELR2M0START   equ 2000h
+SELBUSMAP      equ 2800h
+SELROM3START   equ 3000h
+SELNOTUSED     equ 4000h
+SELRAMEND      equ 0FFFFh
+
+SELExtend9     equ 2808h
+SELExtendA     equ 0E000h
+SELExtendB     equ 0E003h
 ; ---------------------------------------------------------------------------
 
 ; Keyboard- and	Displaycontroller
@@ -169,7 +184,7 @@ EH equ 7			; Enter	HUNT Mode
 ; ===========================================================================
 
 ; Segment type:	Pure code
-	cseg	; ROM
+        cseg	; ROM
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -181,13 +196,13 @@ EH equ 7			; Enter	HUNT Mode
 ; wie auch beim	Hardware-RESET‚ erhalten).
 ; Attributes: thunk
 
-		public KALTSTART
+                public KALTSTART
 KALTSTART:
-		jp	start
+                jp	start
 ; End of function KALTSTART
 
 ; ---------------------------------------------------------------------------
-		dw 218h
+                dw 218h
 
 ; =============== S U B	R O U T	I N E =======================================
 
@@ -199,9 +214,9 @@ KALTSTART:
 ; Registerinhalte gehen	durch die Benutzung durch das
 ; Betriebssystem verloren.
 
-		public WARMSTART
+                public WARMSTART
 WARMSTART:
-		jp	MainLoop
+                jp	MainLoop
 ; End of function WARMSTART
 
 
@@ -240,9 +255,9 @@ WARMSTART:
 ; und Mode 2 = Vektor-INTERRUPT) sind außerdem	bei entsprechender Hardware-
 ; Ergänzung möglich.
 
-		public RESTART_1
+                public RESTART_1
 RESTART_1:
-		jp	UserRST08
+                jp	UserRST08
 ; End of function RESTART_1
 
 
@@ -255,9 +270,9 @@ RESTART_1:
 ; zerstört keine Registerinhalte, erwartet aber im B Register den
 ; Verzögerungswert.
 
-		public DELAY_1
+                public DELAY_1
 DELAY_1:				; CODE XREF: FlashDisplay+Cp
-		ld	b, 0
+                ld	b, 0
 ; End of function DELAY_1
 
 
@@ -268,9 +283,9 @@ DELAY_1:				; CODE XREF: FlashDisplay+Cp
 ; (ca.)	5 ms, wie der Inhalt des B—Regieters angibt.
 ; Attributes: thunk
 
-		public DELAY
+                public DELAY
 DELAY:
-		jp	DelayBx5ms	; B * 5ms
+                jp	DelayBx5ms	; B * 5ms
 ; End of function DELAY
 
 
@@ -284,9 +299,9 @@ DELAY:
 ; Man kann diesen Einsprung am Programmende bewusst verwenden, wenn man	die
 ; Registerinhalte unverändert haben will.
 
-		public BREAK
+                public BREAK
 BREAK:
-		jp	Breakpoint
+                jp	Breakpoint
 ; End of function BREAK
 
 
@@ -300,9 +315,9 @@ BREAK:
 ;
 ;
 
-		public SENDA0
+                public SENDA0
 SENDA0:
-		ld	c, 0
+                ld	c, 0
 ; End of function SENDA0
 
 
@@ -323,9 +338,9 @@ SENDA0:
 ; auszugebende Byte.
 ;
 
-		public SENDA
+                public SENDA
 SENDA:
-		jp	DispBytePos	; Displays byte	a on 2 segments	at c
+                jp	DispBytePos	; Displays byte	a on 2 segments	at c
 ; End of function SENDA
 
 
@@ -334,9 +349,9 @@ SENDA:
 ; Anwender RST 3
 ;
 
-		public RESTART_3
+                public RESTART_3
 RESTART_3:
-		jp	UserRST18
+                jp	UserRST18
 ; End of function RESTART_3
 
 
@@ -346,9 +361,9 @@ RESTART_3:
 ; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
 ; ohne Laden des C-Registers, zu den 4 linken Anzeigen ausgegeben.
 
-		public SENDPR_1
+                public SENDPR_1
 SENDPR_1:				; CODE XREF: NMI+40p GetAddrp	...
-		ld	c, 1		; Address Display-Segments
+                ld	c, 1		; Address Display-Segments
 ; End of function SENDPR_1
 
 
@@ -373,9 +388,9 @@ SENDPR_1:				; CODE XREF: NMI+40p GetAddrp	...
 ; und dem Status keine Registerinhalte,	erwartet aber im C-Register
 ; die Position und im HL-Register die Stringadresse.
 
-		public SENDPR
+                public SENDPR
 SENDPR:
-		jp	Display4pHL	; Copy 4 byte (HL..HL-3) to Display
+                jp	Display4pHL	; Copy 4 byte (HL..HL-3) to Display
 ; End of function SENDPR
 
 
@@ -383,9 +398,9 @@ SENDPR:
 
 ; Anwender RST 4
 
-		public RESTART_4
+                public RESTART_4
 RESTART_4:
-		jp	UserRST20
+                jp	UserRST20
 ; End of function RESTART_4
 
 
@@ -393,9 +408,9 @@ RESTART_4:
 
 ; HL-Anzeigen (links)
 
-		public SENDHL_1
+                public SENDHL_1
 SENDHL_1:				; CODE XREF: Func_MM+11p Func_TW+1Dp
-		ld	c, 1
+                ld	c, 1
 ; End of function SENDHL_1
 
 
@@ -403,20 +418,20 @@ SENDHL_1:				; CODE XREF: Func_MM+11p Func_TW+1Dp
 
 ; HL-Anzeigen
 
-		public SENDHL
+                public SENDHL
 SENDHL:
-		jp	DisplyHL	; Display HL on
+                jp	DisplyHL	; Display HL on
 ; End of function SENDHL		; c != 1 Data #### HHLL
-					; c == 0 Addr HHLL ####
+                                        ; c == 0 Addr HHLL ####
 					;
 
 ; =============== S U B	R O U T	I N E =======================================
 
 ; Anwender RST 5
 
-		public RESTART_5
+                public RESTART_5
 RESTART_5:
-		jp	UserRST28
+                jp	UserRST28
 ; End of function RESTART_5
 
 
@@ -424,9 +439,9 @@ RESTART_5:
 
 ; 8-Digit-Anzeige (kom)
 
-		public SENDDS_1
+                public SENDDS_1
 SENDDS_1:				; CODE XREF: MainLoop+3p Func_RG+3p ...
-		ld	a, 1
+                ld	a, 1
 ; End of function SENDDS_1
 
 
@@ -434,9 +449,9 @@ SENDDS_1:				; CODE XREF: MainLoop+3p Func_RG+3p ...
 
 ; 8-Digit-Anzeige
 
-		public SENDDS
+                public SENDDS
 SENDDS:
-		jp	CopyHLAtoDisplay ; Copies 8 byte from (HL) or A	to Display 7..0
+                jp	CopyHLAtoDisplay ; Copies 8 byte from (HL) or A	to Display 7..0
 ; End of function SENDDS		;
 
 
@@ -444,21 +459,21 @@ SENDDS:
 
 ; Anwender RST 6
 
-		public RESTART_6
+                public RESTART_6
 RESTART_6:
-		jp	UserRST30
+                jp	UserRST30
 ; End of function RESTART_6
 
 ; ---------------------------------------------------------------------------
-		dw 0FFFFh
+                dw 0FFFFh
 
 ; =============== S U B	R O U T	I N E =======================================
 
 ; HEX_Anzeige von Tastatur
 
-		public GETHX
+                public GETHX
 GETHX:
-		jp	EnterDataByte
+                jp	EnterDataByte
 ; End of function GETHX
 
 
@@ -467,9 +482,9 @@ GETHX:
 ; INTERRUPT-Service
 ; Attributes: thunk
 
-		public INTRPT
+                public INTRPT
 INTRPT:
-		jp	DoRst38
+                jp	DoRst38
 ; End of function INTRPT
 
 
@@ -477,9 +492,9 @@ INTRPT:
 
 ; Adressenanzeige von Tastatur
 
-		public GETADR
+                public GETADR
 GETADR:
-		jp	ClrGetAddress
+                jp	ClrGetAddress
 ; End of function GETADR
 
 
@@ -487,9 +502,9 @@ GETADR:
 
 ; HEX/7-Segemnt-Konverter
 
-		public CONV7SEG
+                public CONV7SEG
 CONV7SEG:
-		jp	_CONV7SEG
+                jp	_CONV7SEG
 ; End of function CONV7SEG
 
 
@@ -497,9 +512,9 @@ CONV7SEG:
 
 ; Tastatur IN (codiert)
 
-		public GETH
+                public GETH
 GETH:
-		jp	_GETH		; Wait for Key.	Return A=FF if not an Hex-Key
+                jp	_GETH		; Wait for Key.	Return A=FF if not an Hex-Key
 ; End of function GETH
 
 
@@ -507,9 +522,9 @@ GETH:
 
 ; Tastatur IN (uncodiert)
 
-		public INCH
+                public INCH
 INCH:
-		jp	_INCH		; Lies Zeichen von Tastatur
+                jp	_INCH		; Lies Zeichen von Tastatur
 ; End of function INCH
 
 
@@ -517,9 +532,9 @@ INCH:
 
 ; Tastaturstatus
 
-		public KEYSTAT
+                public KEYSTAT
 KEYSTAT:
-		jp	_KEYSTAT
+                jp	_KEYSTAT
 ; End of function KEYSTAT
 
 
@@ -527,9 +542,9 @@ KEYSTAT:
 
 ; Anzeige Display-Buffer
 
-		public OUTCH
+                public OUTCH
 OUTCH:
-		jp	_OUTCH		; Refresh Display Buffer to Device
+                jp	_OUTCH		; Refresh Display Buffer to Device
 ; End of function OUTCH
 
 
@@ -537,9 +552,9 @@ OUTCH:
 
 ; V24-Initialisierung
 
-		public V24INIT
+                public V24INIT
 V24INIT:
-		jp	BreakTxSIO
+                jp	BreakTxSIO
 ; End of function V24INIT
 
 
@@ -547,9 +562,9 @@ V24INIT:
 
 ; V24-Status IN
 
-		public V24STAT
+                public V24STAT
 V24STAT:
-		jp	ChkSioOutRdy
+                jp	ChkSioOutRdy
 ; End of function V24STAT
 
 
@@ -557,9 +572,9 @@ V24STAT:
 
 ; V24-Input
 
-		public V24IN
+                public V24IN
 V24IN:
-		jp	SioGeta
+                jp	SioGeta
 ; End of function V24IN
 
 
@@ -567,9 +582,9 @@ V24IN:
 
 ; V24-Output
 
-		public V24OUT
+                public V24OUT
 V24OUT:
-		jp	SioPuta
+                jp	SioPuta
 ; End of function V24OUT
 
 
@@ -577,9 +592,9 @@ V24OUT:
 
 ; USER-display-Ausgabe
 
-		public OUTDIS
+                public OUTDIS
 OUTDIS:
-		jp	UserDisplBufferOut
+                jp	UserDisplBufferOut
 ; End of function OUTDIS
 
 
@@ -587,9 +602,9 @@ OUTDIS:
 
 ; Drucker-Initialisierung
 
-		public PRTINI
+                public PRTINI
 PRTINI:
-		jp	PIOMode1InA
+                jp	PIOMode1InA
 ; End of function PRTINI
 
 
@@ -597,9 +612,9 @@ PRTINI:
 
 ; Zeichenausgabe Drucker
 
-		public PRTCHT
+                public PRTCHT
 PRTCHT:
-		jp	PrintC
+                jp	PrintC
 ; End of function PRTCHT
 
 
@@ -607,19 +622,19 @@ PRTCHT:
 
 ; programmierbarer Sprung
 
-		public RESERVE
+                public RESERVE
 RESERVE:
-		jp	0FFFFh
+                jp	0FFFFh
 ; End of function RESERVE
 
 ; ---------------------------------------------------------------------------
-		db 0FFh
+                db 0FFh
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
 NMI:
-		ld	(TempByte), a
+                ld	(TempByte), a
 		ld	a, 0FFh
 		out	(LS73_90_P8), a	; Stop NMI trigger
 		ld	a, (TempByte)
@@ -627,7 +642,7 @@ NMI:
 		pop	hl
 
 SafeUserBreak:				; DATA XREF: Breakpoint+1Ao
-		ld	(UserProgramPtr), hl
+                ld	(UserProgramPtr), hl
 		ld	(UsetStackPtr),	sp
 		ld	sp, UserRegSP
 		ld	hl, (TempWord)
@@ -652,11 +667,11 @@ SafeUserBreak:				; DATA XREF: Breakpoint+1Ao
 		ld	a, 1
 
 rr:					; CODE XREF: NMI+32j
-		ld	(RegIR+1), a
+                ld	(RegIR+1), a
 		ld	sp, SysStackTop
 		ld	hl, dpl_bp_	; -
 		call	SENDPR_1	; HL-Anzeige (links)
-					; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
+		                        ; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
 					; ohne Laden des C-Registers, zu den 4 linken Anzeigen ausgegeben.
 		ld	hl, (UserProgramPtr)
 		call	DisplayHLData	; Display byte HL on the right Segemnts
@@ -668,7 +683,7 @@ rr:					; CODE XREF: NMI+32j
 
 
 Breakpoint:				; CODE XREF: BREAKj
-		ex	(sp), hl
+                ex	(sp), hl
 		dec	hl
 		ex	(sp), hl
 		ld	(TempWord), hl
@@ -686,7 +701,7 @@ Breakpoint:				; CODE XREF: BREAKj
 ; ---------------------------------------------------------------------------
 
 DoBreakPoint:				; CODE XREF: Breakpoint+Ej
-		pop	af
+                pop	af
 		ld	hl, SafeUserBreak
 		ex	(sp), hl
 		ret
@@ -697,7 +712,7 @@ DoBreakPoint:				; CODE XREF: Breakpoint+Ej
 
 
 Func_BP:				; DATA XREF: ROM:0338o
-		call	RestorBreakPoint ; Remove Breake-Point
+                call	RestorBreakPoint ; Remove Breake-Point
 		ld	hl, dpl_bp	; b
 		call	GetAddr
 		push	hl
@@ -719,7 +734,7 @@ Func_BP:				; DATA XREF: ROM:0338o
 
 
 InitSys:				; CODE XREF: start+19p
-		xor	a
+                xor	a
 		out	(BinIO_PC), a	; Clear	LED
 		ld	(LEDStatus), a	; All OFF
 		cpl
@@ -734,7 +749,7 @@ InitSys:				; CODE XREF: start+19p
 		otir
 
 wack:					; CODE XREF: InitSys+22j
-		in	a, (IC8279_Ctrl)
+                in	a, (IC8279_Ctrl)
 		and	80h		; Ready
 		jr	nz, wack
 		ld	bc, 4
@@ -756,7 +771,7 @@ wack:					; CODE XREF: InitSys+22j
 ; Remove Breake-Point
 
 RestorBreakPoint:			; CODE XREF: Breakpoint+7p Func_BPp ...
-		ld	a, (BreakPointCode) ; Restores the original op-code overwritten	by breakpoint RST 10 code
+                ld	a, (BreakPointCode) ; Restores the original op-code overwritten	by breakpoint RST 10 code
 		cp	0D7h		; RST 10
 		jr	nz, NotSet
 		ld	hl, (BreakPointAddr)
@@ -764,18 +779,18 @@ RestorBreakPoint:			; CODE XREF: Breakpoint+7p Func_BPp ...
 		ld	(hl), a
 
 NotSet:					; CODE XREF: RestorBreakPoint+5j
-		xor	a
+                xor	a
 		ld	(BreakPointCode), a
 		ret
 ; End of function RestorBreakPoint
 
 ; ---------------------------------------------------------------------------
 Init8279:	db 10h,	39h, 0C1h	; DATA XREF: InitSys+16o
-					; 10: 8bit char	- encode 2key lock-out
+                                        ; 10: 8bit char	- encode 2key lock-out
 					; 39: Clock 19
 					; C1: Clear Display
 Init8251:	db 91h,	40h, 0CEh, 17h	; 91: Stop=1.5,	PAR=ODD, 5Bits,	1x
-					; 40: Error reset
+                                        ; 40: Error reset
 					; CE: ???
 					; 17:Error reset, RxEN,TxEN,DTR
 					; or
@@ -785,7 +800,7 @@ Init8251:	db 91h,	40h, 0CEh, 17h	; 91: Stop=1.5,	PAR=ODD, 5Bits,	1x
 
 
 start:					; CODE XREF: KALTSTARTj
-		xor	a
+                xor	a
 		ld	(BreakCounter),	a
 		ld	hl, UserRamStart
 		ld	(UserProgramPtr), hl
@@ -802,15 +817,15 @@ start:					; CODE XREF: KALTSTARTj
 
 
 MainLoop:				; CODE XREF: WARMSTARTj Func_BP+1Bj ...
-		ld	hl, intro
+                ld	hl, intro
 		call	SENDDS_1	; 8-Digit-Anzeige (kom)
 
 WaitDoFunction:				; CODE XREF: NMI+49j
-		ld	hl, FuncDispatcher
+                ld	hl, FuncDispatcher
 		call	WaitEnterFunction ; Wait function key return func-address on HL
 		jp	(hl)		; Do Funktion
 ; ---------------------------------------------------------------------------
-		xor	a
+                xor	a
 		ld	(BreakCounter),	a
 		jr	MainLoop
 ; End of function MainLoop
@@ -821,7 +836,7 @@ WaitDoFunction:				; CODE XREF: NMI+49j
 ; Lies Zeichen von Tastatur
 
 _INCH:					; CODE XREF: INCHj _INCH+4j ...
-		in	a, (IC8279_Ctrl)
+                in	a, (IC8279_Ctrl)
 		and	FIFOMSK		; Mask Key buffer counter
 		jr	z, _INCH	; Kein Zeichen,	warte bis Zeichen vorhanden.
 ; End of function _INCH
@@ -831,7 +846,7 @@ _INCH:					; CODE XREF: INCHj _INCH+4j ...
 
 
 GetKey:					; CODE XREF: EditFlags+7p
-		in	a, (IC8279_Data)
+                in	a, (IC8279_Data)
 		and	KBMASK		; Maske	auf Maximalcode
 		push	af		; Matrix Code sichern
 		ld	a, CLFIFO	; Clear	Key and	Int reset
@@ -846,7 +861,7 @@ GetKey:					; CODE XREF: EditFlags+7p
 ; shift	display-data left and insert a
 
 InsertData:				; CODE XREF: GetAddr:loc_216p
-					; Func_RG+BAp
+                                        ; Func_RG+BAp
 		ld	hl,  OUTBU+2
 		ld	de,  OUTBU+3
 		ld	bc, 3
@@ -860,13 +875,13 @@ InsertData:				; CODE XREF: GetAddr:loc_216p
 ; Refresh Display Buffer to Device
 
 _OUTCH:					; CODE XREF: OUTCHj GetAddr+1Fp ...
-		push	hl
+                push	hl
 		push	bc
 		ld	hl,  OUTBU+7	; Zeiger auf Bufferende
 		ld	bc, 8*100h+WRDIS ; Anzahl der Stellen nach Register B, Schreibkommando mit Stellenadresse nach Register	C
 
 OUTLP:					; CODE XREF: _OUTCH+10j
-		ld	a, c		; Schreibkommando und Stellenadresse
+                ld	a, c		; Schreibkommando und Stellenadresse
 		out	(IC8279_Ctrl), a
 		ld	a, (hl)		; Daten	aus Buffer
 		out	(IC8279_Data), a
@@ -883,7 +898,7 @@ OUTLP:					; CODE XREF: _OUTCH+10j
 
 
 WaitEnter:				; CODE XREF: Func_BP+Ap WaitEnter+5j ...
-		call	GetCtrlKey	; Wait for Key.	Return A=FF if not an Control-Key
+                call	GetCtrlKey	; Wait for Key.	Return A=FF if not an Control-Key
 		cp	1Eh		; Key EN
 		jr	nz, WaitEnter
 		ret
@@ -895,11 +910,11 @@ WaitEnter:				; CODE XREF: Func_BP+Ap WaitEnter+5j ...
 ; Wait for Key.	Return A=FF if not an Control-Key
 
 GetCtrlKey:				; CODE XREF: WaitEnterp
-					; WaitEnterFunction:waitcontrolkeyp ...
+                                        ; WaitEnterFunction:waitcontrolkeyp ...
 
 ; FUNCTION CHUNK AT 01B5 SIZE 00000003 BYTES
 
-		push	hl
+                push	hl
 		ld	hl, keyctrlmap	; Key MM
 		jr	DoGetKey
 ; End of function GetCtrlKey
@@ -910,24 +925,24 @@ GetCtrlKey:				; CODE XREF: WaitEnterp
 ; Wait for Key.	Return A=FF if not an Hex-Key
 
 _GETH:					; CODE XREF: GETHj GetAddr:waithexkeyp ...
-		push	hl
+                push	hl
 		ld	hl, TABD	; HEX Code Tabelle
 ; End of function _GETH
 
 ; START	OF FUNCTION CHUNK FOR GetCtrlKey
 
 DoGetKey:				; CODE XREF: GetCtrlKey+4j
-		call	_INCH		; Lies Zeichen von Tastatur
+                call	_INCH		; Lies Zeichen von Tastatur
 ; END OF FUNCTION CHUNK	FOR GetCtrlKey
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
 MapKey:					; CODE XREF: MapAonHexKeyMap+4j
-		ld	b, a		; Matrix Code
+                ld	b, a		; Matrix Code
 
 GETLP:					; CODE XREF: MapKey+Bj
-		ld	a, (hl)
+                ld	a, (hl)
 		cp	0FFh		; end of map
 		jr	z, GETEND
 		cp	b
@@ -938,11 +953,11 @@ GETLP:					; CODE XREF: MapKey+Bj
 ; ---------------------------------------------------------------------------
 
 HOLE:					; CODE XREF: MapKey+7j
-		inc	hl
+                inc	hl
 		ld	a, (hl)
 
 GETEND:					; CODE XREF: MapKey+4j
-		pop	hl
+                pop	hl
 		ret
 ; End of function MapKey
 
@@ -952,7 +967,7 @@ GETEND:					; CODE XREF: MapKey+4j
 ; Returns FF if	rA is not a HexKeyCode
 
 MapAonHexKeyMap:			; CODE XREF: Func_MM+4Dp
-		push	hl
+                push	hl
 		ld	hl, TABD	; HEX Code Tabelle
 		jr	MapKey
 ; End of function MapAonHexKeyMap
@@ -962,7 +977,7 @@ MapAonHexKeyMap:			; CODE XREF: Func_MM+4Dp
 
 
 ClrGetAddr:				; CODE XREF: Func_TW+3p Func_TW+Ap ...
-		push	hl
+                push	hl
 		ld	hl, 0
 		ld	(AddrBuffer), hl
 		pop	hl
@@ -976,8 +991,8 @@ GetAddr:				; CODE XREF: Func_BP+6p Func_MM+8Fp ...
 
 ; FUNCTION CHUNK AT 01F0 SIZE 00000045 BYTES
 
-		call	SENDPR_1	; HL-Anzeige (links)
-					; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
+                call	SENDPR_1	; HL-Anzeige (links)
+		                        ; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
 					; ohne Laden des C-Registers, zu den 4 linken Anzeigen ausgegeben.
 		push	de
 		push	bc
@@ -990,7 +1005,7 @@ GetAddr:				; CODE XREF: Func_BP+6p Func_MM+8Fp ...
 ; returns Address on HL
 
 EditAddress:				; CODE XREF: Func_MM+6p Func_RN+10p
-		push	de
+                push	de
 		push	bc
 		ld	hl, (AddrBuffer)
 		call	DisplayHLData	; #### HHLL
@@ -1002,7 +1017,7 @@ EditAddress:				; CODE XREF: Func_MM+6p Func_RN+10p
 
 
 ClrGetAddress:				; CODE XREF: GETADRj
-		push	de
+                push	de
 		push	bc
 		ld	bc, 800h	; 8 x 0
 		call	FillDispl	; set all Segments to 0
@@ -1011,15 +1026,15 @@ ClrGetAddress:				; CODE XREF: GETADRj
 ; START	OF FUNCTION CHUNK FOR GetAddr
 
 Clr4GetAddress:				; CODE XREF: GetAddr+5j
-		ld	bc, 4F3h	; 4 x F3 = ####	0000
+                ld	bc, 4F3h	; 4 x F3 = ####	0000
 		call	FillDispl	; fill Display b bytes with c
 		call	_OUTCH		; Refresh Display Buffer to Device
 
 EnterAddress:				; CODE XREF: EditAddress+8j
-		ld	hl, 0
+                ld	hl, 0
 
 waithexkey:				; CODE XREF: GetAddr+2Aj GetAddr+43j
-		call	_GETH		; Wait for Key.	Return A=FF if not an Hex-Key
+                call	_GETH		; Wait for Key.	Return A=FF if not an Hex-Key
 		cp	0FFh
 		jr	z, waithexkey
 		cp	KeyCode_SA	; accept address
@@ -1037,14 +1052,14 @@ waithexkey:				; CODE XREF: GetAddr+2Aj GetAddr+43j
 		call	_CONV7SEG
 
 loc_216:				; shift	display-data left and insert a
-		call	InsertData
+                call	InsertData
 		pop	hl
 		jr	waithexkey
 ; ---------------------------------------------------------------------------
 ; Copy data #### nnnn to address nnnn ####
 
 acceptaddr:				; CODE XREF: GetAddr+2Ej
-		ld	hl, OUTBU
+                ld	hl, OUTBU
 		ld	de,  OUTBU+4
 		ld	bc, 4
 		ldir			; Move data-display to address-display
@@ -1062,12 +1077,12 @@ acceptaddr:				; CODE XREF: GetAddr+2Ej
 ; fill Display b bytes with c
 
 FillDispl:				; CODE XREF: ClrGetAddress+5p
-					; GetAddr+1Cp ...
+                                        ; GetAddr+1Cp ...
 		ld	de, OUTBU
 		ld	a, c
 
 loFillDispl:				; CODE XREF: FillDispl+6j
-		ld	(de), a
+                ld	(de), a
 		inc	de
 		djnz	loFillDispl
 		ret
@@ -1078,7 +1093,7 @@ loFillDispl:				; CODE XREF: FillDispl+6j
 
 
 _CONV7SEG:				; CODE XREF: CONV7SEGj	GetAddr+3Cp ...
-		push	hl
+                push	hl
 		push	bc
 		and	LSD		; Last signifikant digit
 		ld	c, a		; Offset in Lookup-Tabelle
@@ -1096,7 +1111,7 @@ _CONV7SEG:				; CODE XREF: CONV7SEGj	GetAddr+3Cp ...
 
 
 DisplayByteDataMsb:			; CODE XREF: Func_MM+Ep
-					; EnterDataByte+46p
+                                        ; EnterDataByte+46p
 		ld	c, 1
 ; End of function DisplayByteDataMsb
 
@@ -1106,7 +1121,7 @@ DisplayByteDataMsb:			; CODE XREF: Func_MM+Ep
 ; Displays byte	a on 2 segments	at c
 
 DispBytePos:				; CODE XREF: SENDAj DisplyHL+Bp ...
-		push	hl
+                push	hl
 		push	bc
 		ld	hl, OUTBU	; #### #### <-
 		ld	b, a		; byte to display
@@ -1119,7 +1134,7 @@ DispBytePos:				; CODE XREF: SENDAj DisplyHL+Bp ...
 		add	hl, bc		; 0->+0, 1->+2,	2->+4, 3->+6
 
 DisplByte:				; CODE XREF: DispBytePos+Cj
-		pop	bc
+                pop	bc
 		ld	a, b		; Byte to display on segment
 		call	_CONV7SEG	; Convert bin to 7-segment
 		ld	(hl), a		; LSNipple
@@ -1143,7 +1158,7 @@ DisplByte:				; CODE XREF: DispBytePos+Cj
 ; Display byte HL on the right Segemnts
 
 DisplayHLData:				; CODE XREF: NMI+46p EditAddress+5p ...
-		ld	c, 0
+                ld	c, 0
 ; End of function DisplayHLData
 
 
@@ -1155,7 +1170,7 @@ DisplayHLData:				; CODE XREF: NMI+46p EditAddress+5p ...
 ;
 
 DisplyHL:				; CODE XREF: SENDHLj
-		ld	a, c		; pos
+                ld	a, c		; pos
 		or	a
 		jr	z, UsePos	; Pos 0	#### HHLL
 		inc	c
@@ -1164,7 +1179,7 @@ DisplyHL:				; CODE XREF: SENDHLj
 		ld	c, 0		; #### ##XX
 
 UsePos:					; CODE XREF: DisplyHL+2j DisplyHL+6j
-		ld	a, l
+                ld	a, l
 		call	DispBytePos	; Displays byte	a on 2 segments	at c
 		inc	c		; #### XX##
 		ld	a, h
@@ -1182,7 +1197,7 @@ UsePos:					; CODE XREF: DisplyHL+2j DisplyHL+6j
 ;
 
 CopyHLAtoDisplay:			; CODE XREF: SENDDSj FlashDisplay+9p
-		push	de
+                push	de
 		push	bc
 		ld	de,  OUTBU+7	; Start	at Segment on the left
 		ld	bc, 7
@@ -1192,7 +1207,7 @@ CopyHLAtoDisplay:			; CODE XREF: SENDDSj FlashDisplay+9p
 		ld	a, (hl)		; if a == 1 then next 8. byte too
 
 UseA:					; CODE XREF: CopyHLAtoDisplay+Cj
-		ld	(de), a
+                ld	(de), a
 		call	_OUTCH		; Refresh Display Buffer to Device
 		pop	bc
 		pop	de
@@ -1205,7 +1220,7 @@ UseA:					; CODE XREF: CopyHLAtoDisplay+Cj
 ; SetHLtoDisp Data
 
 SetHLtoDispData:			; CODE XREF: Func_RN+1Cp Func_TR+Dp
-		ld	c, 0
+                ld	c, 0
 ; End of function SetHLtoDispData
 
 ;Copy 4	bytes to system	display
@@ -1217,7 +1232,7 @@ SetHLtoDispData:			; CODE XREF: Func_RN+1Cp Func_TR+Dp
 ; Copy 4 byte (HL..HL-3) to Display
 
 Display4pHL:				; CODE XREF: SENDPRj
-		push	de
+                push	de
 		push	bc
 		ld	de,  OUTBU+7	; -> #### ####
 		dec	c		; 1 -> 0 then TopPosition
@@ -1225,7 +1240,7 @@ Display4pHL:				; CODE XREF: SENDPRj
 		ld	de,  OUTBU+3	; #### -> ####
 
 UseDisplSection:			; CODE XREF: Display4pHL+6j
-		ld	bc, 4		; 4 7Seg Displays
+                ld	bc, 4		; 4 7Seg Displays
 		lddr
 		call	_OUTCH		; Refresh Display Buffer to Device
 		pop	bc
@@ -1239,22 +1254,22 @@ UseDisplSection:			; CODE XREF: Display4pHL+6j
 ; B * 5ms
 
 DelayBx5ms:				; CODE XREF: DELAYj
-		push	bc
+                push	bc
 ; 2437 usec
 ; 265 *	9.5usec	+ 1.75usec + 3.25usec
 
 loc_2BA:				; CODE XREF: DelayBx5ms+Aj
-		ld	c, 0		; 2 7 1.75
+                ld	c, 0		; 2 7 1.75
 
 Wait8_5:				; CODE XREF: DelayBx5ms+8j
-		inc	bc		; 1 6 1.5
+                inc	bc		; 1 6 1.5
 		dec	bc		; 1 6 1.5
 		inc	bc		; 1 6 1.5
 		dec	bc		; 1 6 1.5
 		dec	c		; 1 4 1.0
 		jr	nz, Wait8_5	; 3 10 2.5
 		djnz	loc_2BA		; 3 13 3.25 * B
-					; 2  8 2.0
+		                        ; 2  8 2.0
 		pop	bc		; 3 10 2.5
 		ret			; 3 10 2.5
 ; End of function DelayBx5ms
@@ -1265,21 +1280,21 @@ Wait8_5:				; CODE XREF: DelayBx5ms+8j
 ; Wait function	key return func-address	on HL
 
 WaitEnterFunction:			; CODE XREF: MainLoop+9p
-		push	de
+                push	de
 		push	bc
 
 WaitFunction:				; CODE XREF: WaitEnterFunction+2Dj
-		push	hl
+                push	hl
 		pop	de
 
 waitcontrolkey:				; CODE XREF: WaitEnterFunction+Aj
-		call	GetCtrlKey	; Wait for Key.	Return A=FF if not an Control-Key
+                call	GetCtrlKey	; Wait for Key.	Return A=FF if not an Control-Key
 		ld	b, a
 		cp	0FFh
 		jr	z, waitcontrolkey
 
 funcloop:				; CODE XREF: WaitEnterFunction+1Bj
-					; WaitEnterFunction+24j
+                                        ; WaitEnterFunction+24j
 		ld	a, (hl)
 		cp	0FFh
 		jr	z, nofunction
@@ -1294,7 +1309,7 @@ funcloop:				; CODE XREF: WaitEnterFunction+1Bj
 ; ---------------------------------------------------------------------------
 
 nofunction:				; CODE XREF: WaitEnterFunction+Fj
-		ld	a, (BreakCounter)
+                ld	a, (BreakCounter)
 		or	a
 		jr	z, FlashRegI	; I
 		inc	hl
@@ -1302,7 +1317,7 @@ nofunction:				; CODE XREF: WaitEnterFunction+Fj
 ; ---------------------------------------------------------------------------
 
 FlashRegI:				; CODE XREF: WaitEnterFunction+13j
-					; WaitEnterFunction+21j
+                                        ; WaitEnterFunction+21j
 		ld	a, seg7B|seg7C	; I
 		push	de
 		call	FlashDisplay
@@ -1311,7 +1326,7 @@ FlashRegI:				; CODE XREF: WaitEnterFunction+13j
 ; ---------------------------------------------------------------------------
 
 SetHLFuncAddr:				; CODE XREF: WaitEnterFunction+16j
-		inc	hl
+                inc	hl
 		ld	a, (hl)
 		inc	hl
 		ld	h, (hl)
@@ -1329,11 +1344,11 @@ SetHLFuncAddr:				; CODE XREF: WaitEnterFunction+16j
 ;
 
 SafeDisply:				; CODE XREF: FlashDisplay+3p
-		ld	hl, OUTBU
+                ld	hl, OUTBU
 		ld	de, SysDisplayBackup
 
 saferestor:				; CODE XREF: RestoreDisplay+6j
-		ld	bc, 8
+                ld	bc, 8
 		ldir
 		ret
 ; End of function SafeDisply
@@ -1344,7 +1359,7 @@ saferestor:				; CODE XREF: RestoreDisplay+6j
 ; Restore Display from backup
 
 RestoreDisplay:				; CODE XREF: FlashDisplay+Fp
-		ld	hl, SysDisplayBackup
+                ld	hl, SysDisplayBackup
 		ld	de, OUTBU
 		jr	saferestor
 ; End of function RestoreDisplay
@@ -1354,18 +1369,18 @@ RestoreDisplay:				; CODE XREF: FlashDisplay+Fp
 
 
 FlashDisplay:				; CODE XREF: WaitEnterFunction+29p
-					; Func_MM+7Bp ...
+                                        ; Func_MM+7Bp ...
 		push	hl
 		push	de
 		push	bc
 		call	SafeDisply	; Save Display to backup
-					;
+		                        ;
 					;
 		ld	hl, FlashReg	; ""
 		call	CopyHLAtoDisplay ; Copies 8 byte from (HL) or A	to Display 7..0
-					;
+		                        ;
 		call	DELAY_1		; Verzgerung 1.28sec
-					; Der Einsprung
+		                        ; Der Einsprung
 					; zum Unterprogramm DELAY 1 ergibt die damit maxlmal erreichbare
 					; Verzögerung von 256 * 5 = 1.280 ms =	1,28 s.	Dies Unterprogramm
 					; zerstört keine Registerinhalte, erwartet aber im B Register den
@@ -1380,7 +1395,7 @@ FlashDisplay:				; CODE XREF: WaitEnterFunction+29p
 
 ; ---------------------------------------------------------------------------
 FuncDispatcher:	db KeyCode_MM		; DATA XREF: MainLoop:WaitDoFunctiono
-		dw Func_MM
+                dw Func_MM
 		db KeyCode_TR
 		dw Func_TR
 		db KeyCode_RG
@@ -1404,7 +1419,7 @@ FuncDispatcher:	db KeyCode_MM		; DATA XREF: MainLoop:WaitDoFunctiono
 		db    1
 		db 0FEh
 TABD:		db 0, 0Fh		; DATA XREF: _GETH+1o
-					; MapAonHexKeyMap+1o
+                                        ; MapAonHexKeyMap+1o
 					; HEX Code Tabelle
 		db 1, 0Eh		; Key E
 		db 2, 0Dh		; Key D
@@ -1424,7 +1439,7 @@ TABD:		db 0, 0Fh		; DATA XREF: _GETH+1o
 		db 1Dh,	1Dh		; Key SA
 		db 0FFh
 keyctrlmap:	db 4, 4			; DATA XREF: GetCtrlKey+1o
-					; Key MM
+                                        ; Key MM
 		db 5, 5			; Key RN
 		db 6, 6			; Key SS
 		db 0Ch,	0Ch		; Key TR
@@ -1441,7 +1456,7 @@ keyctrlmap:	db 4, 4			; DATA XREF: GetCtrlKey+1o
 		db 1Fh,	1Fh		; Key RG
 		db 0FFh
 TAB7:		db seg7E|seg7F|seg7A|seg7B|seg7C|seg7D ; DATA XREF: _CONV7SEG+5o
-					; 0
+                                        ; 0
 		db seg7B|seg7C		; 1
 		db seg7E|seg7G|seg7A|seg7B|seg7D ; 2
 		db seg7G|seg7A|seg7B|seg7C|seg7D ; 3
@@ -1458,7 +1473,7 @@ TAB7:		db seg7E|seg7F|seg7A|seg7B|seg7C|seg7D ; DATA XREF: _CONV7SEG+5o
 		db seg7E|seg7F|seg7G|seg7A|seg7D ; E
 		db seg7E|seg7F|seg7G|seg7A ; F
 PrmRegs:	db    0			; DATA XREF: Func_RG+2Co
-		db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; A
+                db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; A
 		db seg7E|seg7F|seg7G|seg7A ; F
 		dw UserRegAF
 		db    1
@@ -1517,7 +1532,7 @@ PrmRegs:	db    0			; DATA XREF: Func_RG+2Co
 		db seg7E|seg7F|seg7G|seg7A|seg7B ; P
 		db seg7E|seg7C|seg7D	; u
 intro:		db seg7G		; DATA XREF: MainLoopo
-					; -
+                                        ; -
 		db    0
 		db 0F3h
 		db    0
@@ -1526,93 +1541,93 @@ intro:		db seg7G		; DATA XREF: MainLoopo
 		db    5
 		db 97h
 FlashReg:	.ascii 0,0,0,0,0,0	; DATA XREF: FlashDisplay+6o
-					; Func_MM+D7o ...
+                                        ; Func_MM+D7o ...
 		db seg7E|seg7F|seg7G|seg7A|seg7C|seg7D ; G
 		db seg7E|seg7F|seg7G|seg7A|seg7D ; E
 dpl_reg:	db seg7E|seg7G		; DATA XREF: Func_RGo
-					; r
+                                        ; r
 		db 0
 		db seg7E|seg7G|seg7C	; n
 		db seg7E|seg7C|seg7D	; u
 dpl_run:	db seg7E|seg7G		; DATA XREF: Func_RNo Func_RN+19o
-					; r
+                                        ; r
 		db 0
 		db seg7E|seg7G		; r
 		db seg7E|seg7G|seg7B|seg7C|seg7D ; d
 dpl_Adr:	db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; DATA XREF: Func_MMo
-					; Func_SS+5o
+                                        ; Func_SS+5o
 					; A d r
 		db seg7E|seg7G|seg7B|seg7C|seg7D ; d
 		db    0
 		db seg7E|seg7G|seg7B|seg7C|seg7D ; d
 dpl_Ad_d:	db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; DATA XREF: ExtendE+7o
-					; A
+                                        ; A
 		db 0
 		db 0
 		db seg7E|seg7F|seg7G|seg7A|seg7B ; p
 dpl_bp:		db seg7E|seg7F|seg7G|seg7C|seg7D ; DATA	XREF: Func_BP+3o
-					; b
+                                        ; b
 		db seg7G		; -
 		db seg7E|seg7F|seg7G|seg7A|seg7B ; p
 		db seg7E|seg7F|seg7G|seg7C|seg7D ; b
 dpl_bp_:	db seg7G		; DATA XREF: NMI+3Do
-					; -
+                                        ; -
 		db seg7F|seg7G|seg7A|seg7C|seg7D ; S
 		db seg7E|seg7G		; r
 		db seg7E|seg7G|seg7B|seg7C|seg7D ; d
 dpl_Adrs:	db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; DATA XREF: Func_MM+8Co
-					; Func_TW+7o ...
+                                        ; Func_TW+7o ...
 					; A
 		db seg7E|seg7F|seg7G|seg7A|seg7D ; E
 		db seg7E|seg7G		; r
 		db seg7E|seg7G|seg7B|seg7C|seg7D ; d
 dpl_Adre:	db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; DATA XREF: Func_MM+C5o
-					; Func_TW+10o ...
+                                        ; Func_TW+10o ...
 					; A
 		db seg7E|seg7G|seg7C	; n
 		db seg7E|seg7F|seg7G|seg7A|seg7D ; E
 		db seg7E|seg7F|seg7D	; L
 dpl_plen:	db seg7E|seg7F|seg7G|seg7A|seg7B ; DATA	XREF: Func_TW+2Do
-					; p
+                                        ; p
 		db seg7E|seg7G		; r
 		db seg7E|seg7G|seg7C	; n
 		db seg7E|seg7G		; r
 dpl_prnr:	db seg7E|seg7F|seg7G|seg7A|seg7B ; DATA	XREF: Func_TWo
-					; P
+                                        ; P
 		db seg7E|seg7G|seg7B|seg7C|seg7D ; d
 		db seg7E|seg7F|seg7G|seg7A|seg7B|seg7C ; A
 		db seg7E|seg7F|seg7G|seg7A|seg7D ; E
 dpl_read:	db seg7E|seg7G		; DATA XREF: Func_TRo
-					; r
+                                        ; r
 		db 0
 		db seg7E|seg7G|seg7C	; n
 		db seg7C
 Epr:		.ascii 0,0,0,0,0	; DATA XREF: Func_TR+Ao
-		db seg7G		; -
+                db seg7G		; -
 		db seg7E|seg7G		; r
 		db seg7E|seg7F|seg7G|seg7A|seg7B ; p
 dpl_Epr_:	db seg7E|seg7F|seg7G|seg7A|seg7D ; DATA	XREF: Extend4_8o
-					; E
+                                        ; E
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
 Func_MM:				; DATA XREF: ROM:032Co
-		ld	hl, dpl_Adr	; A d r
+                ld	hl, dpl_Adr	; A d r
 		call	SENDPR_1	; HL-Anzeige (links)
-					; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
+		                        ; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
 					; ohne Laden des C-Registers, zu den 4 linken Anzeigen ausgegeben.
 		call	EditAddress	; returns Address on HL
 		xor	a
 		ld	(DataBuffer), a
 
 DisplayMM:				; CODE XREF: Func_MM+4Aj Func_MM+88j ...
-		ld	a, (hl)		; Get Byte
+                ld	a, (hl)		; Get Byte
 		call	DisplayByteDataMsb
 		call	SENDHL_1	; HL-Anzeigen (links)
 
 PredMM:					; CODE XREF: Func_MM+44j Func_MM+6Cj
-		ld	hl, (AddrBuffer)
+                ld	hl, (AddrBuffer)
 		call	GetCtrlKey	; Wait for Key.	Return A=FF if not an Control-Key
 		cp	0FFh
 		jr	z, ChkEditMM
@@ -1624,7 +1639,7 @@ PredMM:					; CODE XREF: Func_MM+44j Func_MM+6Cj
 		jp	z, SingleStep
 
 nostep:					; CODE XREF: Func_MM+23j
-		cp	KeyCode_EN
+                cp	KeyCode_EN
 		jp	z, MainLoop
 		cp	KeyCode_RL
 		jr	z, MM_RL
@@ -1641,12 +1656,12 @@ nostep:					; CODE XREF: Func_MM+23j
 		dec	hl
 
 NextMM:					; CODE XREF: Func_MM+3Fj
-		ld	(AddrBuffer), hl
+                ld	(AddrBuffer), hl
 		jr	DisplayMM
 ; ---------------------------------------------------------------------------
 
 ChkEditMM:				; CODE XREF: Func_MM+1Cj
-		ld	a, b
+                ld	a, b
 		call	MapAonHexKeyMap	; Returns FF if	rA is not a HexKeyCode
 		ld	b, a
 		ld	a, (DataBuffer)
@@ -1669,19 +1684,19 @@ ChkEditMM:				; CODE XREF: Func_MM+1Cj
 ; ---------------------------------------------------------------------------
 
 SaveMM:					; CODE XREF: Func_MM+3Aj Func_MM+E8j
-		ld	a, (DataBuffer)
+                ld	a, (DataBuffer)
 		ld	(hl), a
 		cp	(hl)
 		jr	nz, NextMMAddr	; No RAM
 		inc	hl
 
 NextMMAddr:				; CODE XREF: Func_MM+73j
-		ld	(AddrBuffer), hl
+                ld	(AddrBuffer), hl
 		ld	a, seg7E|seg7G|seg7A|seg7B|seg7D ; S
 		call	nz, FlashDisplay
 
 NewMM:					; CODE XREF: Func_MM+F2j
-		xor	a
+                xor	a
 		ld	(DataBuffer), a
 		ld	bc, 400h
 		call	FillDispl	; fill Display b bytes with c
@@ -1690,7 +1705,7 @@ NewMM:					; CODE XREF: Func_MM+F2j
 ; Relativ distance
 
 MM_RL:					; CODE XREF: Func_MM+31j
-		push	hl
+                push	hl
 		ld	hl, dpl_Adrs	; A
 		call	GetAddr
 		pop	de		; Curr Addr
@@ -1707,7 +1722,7 @@ MM_RL:					; CODE XREF: Func_MM+31j
 		jr	nc, RelUp
 
 StoreMM:				; CODE XREF: Func_MM+B6j
-		pop	hl
+                pop	hl
 		ld	(hl), a
 		inc	hl
 		ld	(AddrBuffer), hl
@@ -1715,7 +1730,7 @@ StoreMM:				; CODE XREF: Func_MM+B6j
 ; ---------------------------------------------------------------------------
 
 RelDown:				; CODE XREF: Func_MM+99j
-		cp	0FFh
+                cp	0FFh
 		jr	nz, RelUp
 		ld	a, l
 		cp	80h
@@ -1724,7 +1739,7 @@ RelDown:				; CODE XREF: Func_MM+99j
 ; ---------------------------------------------------------------------------
 
 RelUp:					; CODE XREF: Func_MM+9Dj Func_MM+A2j ...
-		ld	a, seg7G|seg7A|seg7B|seg7C|seg7D ; 3
+                ld	a, seg7G|seg7A|seg7B|seg7C|seg7D ; 3
 		call	FlashDisplay
 		pop	hl
 		ld	(AddrBuffer), hl
@@ -1732,7 +1747,7 @@ RelUp:					; CODE XREF: Func_MM+9Dj Func_MM+A2j ...
 ; ---------------------------------------------------------------------------
 
 MM_IN:					; CODE XREF: Func_MM+35j
-		push	hl
+                push	hl
 		ld	hl, dpl_Adre	; A
 		call	GetAddr
 		ex	de, hl
@@ -1758,7 +1773,7 @@ MM_IN:					; CODE XREF: Func_MM+35j
 ; ---------------------------------------------------------------------------
 
 FlashMM:				; CODE XREF: Func_MM+DCj
-		call	FlashDisplay
+                call	FlashDisplay
 		pop	de
 		ld	hl, (AddrBuffer)
 		jp	NewMM
@@ -1769,7 +1784,7 @@ FlashMM:				; CODE XREF: Func_MM+DCj
 
 
 Func_SS:				; DATA XREF: ROM:0335o
-		ld	a, 1
+                ld	a, 1
 		ld	(BreakCounter),	a
 		ld	hl, dpl_Adr	; A d r
 		call	GetAddr
@@ -1777,7 +1792,7 @@ Func_SS:				; DATA XREF: ROM:0335o
 		call	WaitEnter
 
 SingleStep:				; CODE XREF: Func_MM+27j Func_RG+87j
-		ld	hl, (UserProgramPtr)
+                ld	hl, (UserProgramPtr)
 		ld	(BreakPointAddr), hl
 		ld	de, BreakPointOrig
 		ld	a, (hl)
@@ -1794,9 +1809,9 @@ SingleStep:				; CODE XREF: Func_MM+27j Func_RG+87j
 
 
 Func_RN:				; DATA XREF: ROM:0341o
-		ld	hl, dpl_run	; r
+                ld	hl, dpl_run	; r
 		call	SENDPR_1	; HL-Anzeige (links)
-					; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
+		                        ; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
 					; ohne Laden des C-Registers, zu den 4 linken Anzeigen ausgegeben.
 		xor	a
 		ld	(BreakCounter),	a
@@ -1814,7 +1829,7 @@ Func_RN:				; DATA XREF: ROM:0341o
 
 
 GoUserProc:				; CODE XREF: Func_SS+21j
-		ld	sp, UserRegAF
+                ld	sp, UserRegAF
 		pop	af		; Working set
 		pop	bc
 		pop	de
@@ -1845,12 +1860,12 @@ GoUserProc:				; CODE XREF: Func_SS+21j
 
 
 Func_RG:				; CODE XREF: Func_RG+7Bj
-					; DATA XREF: ROM:0332o
+                                        ; DATA XREF: ROM:0332o
 		ld	hl, dpl_reg	; r
 		call	SENDDS_1	; 8-Digit-Anzeige (kom)
 
 GetRegKey:				; CODE XREF: Func_RG+Bj Func_RG+17j ...
-		call	GetHexKey	; AF BC	DE HL AF'BC'DE'HL'IX IY PC SP IS FL FL'
+                call	GetHexKey	; AF BC	DE HL AF'BC'DE'HL'IX IY PC SP IS FL FL'
 		cp	0Fh
 		jr	z, GetRegKey	; Skip 0xF no Register function
 		cp	0FFh
@@ -1862,7 +1877,7 @@ GetRegKey:				; CODE XREF: Func_RG+Bj Func_RG+17j ...
 ; ---------------------------------------------------------------------------
 
 RegKey:					; CODE XREF: Func_RG+Fj
-		ld	hl, UserRegAF
+                ld	hl, UserRegAF
 		cp	0Dh		; FL
 		jp	z, DisplBinary
 		ld	hl, UserRegAF_
@@ -1870,7 +1885,7 @@ RegKey:					; CODE XREF: Func_RG+Fj
 		jp	z, DisplBinary
 
 GetRegIdx:				; CODE XREF: Func_RG+34j Func_RG+90j ...
-		ld	(TempByte), a
+                ld	(TempByte), a
 		ld	hl, PrmRegs
 		cp	0Dh
 		jr	c, SearchReg
@@ -1879,7 +1894,7 @@ GetRegIdx:				; CODE XREF: Func_RG+34j Func_RG+90j ...
 ; ---------------------------------------------------------------------------
 
 SearchReg:				; CODE XREF: Func_RG+31j Func_RG+3Fj
-		ld	b, (hl)
+                ld	b, (hl)
 		cp	b
 		jr	z, RegFound
 		inc	hl
@@ -1891,7 +1906,7 @@ SearchReg:				; CODE XREF: Func_RG+31j Func_RG+3Fj
 ; ---------------------------------------------------------------------------
 
 RegFound:				; CODE XREF: Func_RG+38j
-		inc	hl
+                inc	hl
 		ld	e, (hl)
 		inc	hl
 		ld	d, (hl)		; DE = Prompt Register Name
@@ -1920,14 +1935,14 @@ RegFound:				; CODE XREF: Func_RG+38j
 		call	DisplayHLData	; Display byte HL on the right Segemnts
 
 RegLoop:				; CODE XREF: Func_RG+82j Func_RG+8Aj
-		call	GetHexKey
+                call	GetHexKey
 		cp	0FFh
 		jr	z, NoHex
 		jr	EditRegister
 ; ---------------------------------------------------------------------------
 
 NoHex:					; CODE XREF: Func_RG+67j
-		ld	a, b
+                ld	a, b
 		cp	KeyCode_PLUS
 		jr	z, SelectRegister
 		cp	KeyCode_MINUS
@@ -1946,19 +1961,19 @@ NoHex:					; CODE XREF: Func_RG+67j
 ; ---------------------------------------------------------------------------
 
 SelectRegister:				; CODE XREF: Func_RG+6Ej Func_RG+D3j
-		ld	a, (TempByte)
+                ld	a, (TempByte)
 		inc	a
 		jr	GetRegIdx
 ; ---------------------------------------------------------------------------
 
 PreReg:					; CODE XREF: Func_RG+72j
-		ld	a, (TempByte)
+                ld	a, (TempByte)
 		dec	a
 		jr	GetRegIdx
 ; ---------------------------------------------------------------------------
 
 EditRegister:				; CODE XREF: Func_RG+69j
-		push	de
+                push	de
 		push	af
 		ld	bc, 4F3h	; 4 x 0
 		call	FillDispl	; Clear	Data XXXX 0000
@@ -1968,7 +1983,7 @@ EditRegister:				; CODE XREF: Func_RG+69j
 		ld	(TempWord), hl
 
 nextdigit:				; CODE XREF: Func_RG+C5j
-		ld	b, a
+                ld	b, a
 		ld	hl, (TempWord)
 		add	hl, hl
 		add	hl, hl
@@ -1984,14 +1999,14 @@ nextdigit:				; CODE XREF: Func_RG+C5j
 		pop	de
 
 NextRegHex:				; CODE XREF: Func_RG+CAj
-		call	GetHexKey
+                call	GetHexKey
 		cp	0FFh
 		jr	z, CheckEndEdit
 		jr	nextdigit
 ; ---------------------------------------------------------------------------
 
 CheckEndEdit:				; CODE XREF: Func_RG+C3j
-		ld	a, b
+                ld	a, b
 		cp	KeyCode_SD
 		jr	nz, NextRegHex
 		ld	hl, (TempWord)
@@ -2003,18 +2018,18 @@ CheckEndEdit:				; CODE XREF: Func_RG+C3j
 ; ---------------------------------------------------------------------------
 
 DisplBinary:				; CODE XREF: Func_RG+1Ej Func_RG+26j
-		ld	a, (hl)
+                ld	a, (hl)
 		ld	hl, OUTBU
 		ld	b, 8
 
 NextBit:				; CODE XREF: Func_RG+E4j
-		ld	c, seg7B|seg7C	; 1
+                ld	c, seg7B|seg7C	; 1
 		rrca
 		jr	c, Bit2Display
 		ld	c, seg7E|seg7F|seg7A|seg7B|seg7C|seg7D ; 0
 
 Bit2Display:				; CODE XREF: Func_RG+DEj
-		ld	(hl), c
+                ld	(hl), c
 		inc	hl
 		djnz	NextBit
 		call	_OUTCH		; Refresh Display Buffer to Device
@@ -2026,7 +2041,7 @@ Bit2Display:				; CODE XREF: Func_RG+DEj
 
 
 GetHexKey:				; CODE XREF: Func_RG:GetRegKeyp
-					; Func_RG:RegLoopp ...
+                                        ; Func_RG:RegLoopp ...
 		call	_GETH		; Wait for Key.	Return A=FF if not an Hex-Key
 		cp	KeyCode_SA
 		jr	z, GetHexKey
@@ -2038,7 +2053,7 @@ GetHexKey:				; CODE XREF: Func_RG:GetRegKeyp
 
 
 EnterDataByte:				; CODE XREF: GETHXj ExtendF+6p
-		push	hl
+                push	hl
 		push	bc
 		xor	a
 		ld	(DataBuffer), a
@@ -2047,7 +2062,7 @@ EnterDataByte:				; CODE XREF: GETHXj ExtendF+6p
 		call	_OUTCH		; Refresh Display Buffer to Device
 
 EditDataLoop:				; CODE XREF: EnterDataByte+32j
-					; EnterDataByte+37j
+                                        ; EnterDataByte+37j
 		call	GetHexKey
 		cp	0FFh
 		jr	z, NoHexKeyEntered
@@ -2072,7 +2087,7 @@ EditDataLoop:				; CODE XREF: EnterDataByte+32j
 ; ---------------------------------------------------------------------------
 
 NoHexKeyEntered:			; CODE XREF: EnterDataByte+14j
-		ld	a, b
+                ld	a, b
 		cp	KeyCode_SD
 		jr	nz, EditDataLoop
 		ld	bc, 200h
@@ -2093,7 +2108,7 @@ NoHexKeyEntered:			; CODE XREF: EnterDataByte+14j
 ; Programm Number
 
 Func_TW:				; DATA XREF: ROM:033Eo
-		ld	hl, dpl_prnr	; P
+                ld	hl, dpl_prnr	; P
 		call	ClrGetAddr
 		push	hl
 		ld	hl, dpl_Adrs	; Start	Address
@@ -2129,10 +2144,10 @@ Func_TW:				; DATA XREF: ROM:033Eo
 ; START	OF FUNCTION CHUNK FOR ExtendE
 
 RangeError:				; CODE XREF: Func_TW+26j ExtendE+3j ...
-		ld	a, seg7F|seg7G|seg7A|seg7C|seg7D ; 5
+                ld	a, seg7F|seg7G|seg7A|seg7C|seg7D ; 5
 
 FlashMain:
-		call	FlashDisplay
+                call	FlashDisplay
 		jp	MainLoop
 ; END OF FUNCTION CHUNK	FOR ExtendE
 
@@ -2140,7 +2155,7 @@ FlashMain:
 
 
 Func_TR:				; DATA XREF: ROM:032Fo
-		ld	hl, dpl_read	; r
+                ld	hl, dpl_read	; r
 		call	ClrGetAddr
 		push	hl		; File number
 		call	WaitEnter
@@ -2152,16 +2167,16 @@ Func_TR:				; DATA XREF: ROM:032Fo
 		ld	(UserProgramPtr), hl
 
 loc_72D:				; CODE XREF: Func_TR+2Aj
-		call	DisplayHLData	; Display byte HL on the right Segemnts
+                call	DisplayHLData	; Display byte HL on the right Segemnts
 		call	WaitEnter
 		jp	MainLoop
 ; ---------------------------------------------------------------------------
 
 loc_736:				; CODE XREF: Func_TR+14j
-		push	hl
+                push	hl
 		ld	hl, FlashReg	; ""
 		call	SENDPR_1	; HL-Anzeige (links)
-					; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
+		                        ; Durch	Aufruf des Unterprogramms SENDPR 1 wird, wie SENDPTR aber
 					; ohne Laden des C-Registers, zu den 4 linken Anzeigen ausgegeben.
 		pop	hl
 		jr	loc_72D
@@ -2173,14 +2188,14 @@ loc_736:				; CODE XREF: Func_TR+14j
 ; HL start, BC Size
 
 WriteTape:				; CODE XREF: Func_TW+3Cp
-		push	bc
+                push	bc
 		ld	a, 88h		; Port Cupper input all	other output
 		out	(PIO_8255_CntrlStatus),	a
 		di
 		ld	bc, 12288
 
 Pulse12288:				; CODE XREF: WriteTape+Fj
-		call	PulsWriteHIGH
+                call	PulsWriteHIGH
 		dec	bc
 		ld	a, b
 		or	c
@@ -2189,7 +2204,7 @@ Pulse12288:				; CODE XREF: WriteTape+Fj
 		ld	b, 16
 
 Pulse16:				; CODE XREF: WriteTape+19j
-		call	PulsWriteHIGH
+                call	PulsWriteHIGH
 		djnz	Pulse16
 		ld	a, d
 		call	TapeWriteByte
@@ -2214,13 +2229,13 @@ Pulse16:				; CODE XREF: WriteTape+19j
 		ld	b, 64
 
 Pulse64H:				; CODE XREF: WriteTape+44j
-		call	PulsWriteHIGH
+                call	PulsWriteHIGH
 		djnz	Pulse64H
 		pop	bc
 		xor	a
 
 TapeWriteData:				; CODE XREF: WriteTape+55j
-		add	a, (hl)
+                add	a, (hl)
 		push	af
 		ld	a, (hl)
 		call	TapeWriteByte
@@ -2234,7 +2249,7 @@ TapeWriteData:				; CODE XREF: WriteTape+55j
 ; ---------------------------------------------------------------------------
 
 EndWriteData:				; CODE XREF: WriteTape+52j
-		pop	af
+                pop	af
 		call	TapeWriteByte	; Checksum
 		ei
 		ret
@@ -2245,20 +2260,20 @@ EndWriteData:				; CODE XREF: WriteTape+52j
 
 
 TapeWriteByte:				; CODE XREF: WriteTape+1Cp
-					; WriteTape+20p ...
+                                        ; WriteTape+20p ...
 		push	bc
 		call	PulsWriteLOW	; StartByte
 		ld	b, 8		; bits
 
 BitLoop:				; CODE XREF: TapeWriteByte+Dj
-		rra
+                rra
 		call	c, PulsWriteHIGH
 		call	nc, PulsWriteLOW
 		djnz	BitLoop
 		ld	b, 3
 
 Stop3HIGH:				; CODE XREF: TapeWriteByte+14j
-		call	PulsWriteHIGH
+                call	PulsWriteHIGH
 		djnz	Stop3HIGH
 		pop	bc
 		ret
@@ -2269,23 +2284,23 @@ Stop3HIGH:				; CODE XREF: TapeWriteByte+14j
 
 
 PulsWriteHIGH:				; CODE XREF: WriteTape:Pulse12288p
-					; WriteTape:Pulse16p ...
+                                        ; WriteTape:Pulse16p ...
 		push	bc
 		ld	b, 29h
 
 PulseHbLb:				; CODE XREF: PulsWriteLOW+3j
-		push	af
+                push	af
 		push	bc
 		ld	a, 1
 
 H41:					; CODE XREF: PulsWriteHIGH+9j
-		out	(PIO_8255_PortC), a
+                out	(PIO_8255_PortC), a
 		djnz	H41
 		pop	bc
 		ld	a, 0
 
 Lb:					; CODE XREF: PulsWriteHIGH+10j
-		out	(PIO_8255_PortC), a
+                out	(PIO_8255_PortC), a
 		djnz	Lb
 		pop	af
 		pop	bc
@@ -2297,7 +2312,7 @@ Lb:					; CODE XREF: PulsWriteHIGH+10j
 
 
 PulsWriteLOW:				; CODE XREF: WriteTape+11p
-					; TapeWriteByte+1p ...
+                                        ; TapeWriteByte+1p ...
 		push	bc
 		ld	b, 85
 		jr	PulseHbLb
@@ -2309,23 +2324,23 @@ PulsWriteLOW:				; CODE XREF: WriteTape+11p
 ; HL File number
 
 TapeReadFile:				; CODE XREF: Func_TR+11p
-		ld	a, 88h
+                ld	a, 88h
 		out	(PIO_8255_CntrlStatus),	a ; Port C[7-4]	input all other	output
 		di
 		ld	c, 0
 
 RTWaitLow:				; CODE XREF: TapeReadFile+Aj
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		rla
 		jr	c, RTWaitLow
 
 RTWaitHigh:				; CODE XREF: TapeReadFile+Fj
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		rla
 		jr	nc, RTWaitHigh
 
 RTTimer1:				; CODE XREF: TapeReadFile+15j
-		inc	c		; Count	hight time
+                inc	c		; Count	hight time
 		in	a, (PIO_8255_PortC)
 		rla
 		jr	c, RTTimer1	; Count	hight time
@@ -2338,14 +2353,14 @@ RTTimer1:				; CODE XREF: TapeReadFile+15j
 		srl	e		; High Timer1 /	2
 
 SkipGap:				; CODE XREF: TapeReadFile+22j
-					; TapeReadFile+2Ej
+                                        ; TapeReadFile+2Ej
 		in	a, (PIO_8255_PortC)
 		rla
 		jr	nc, SkipGap
 		ld	c, 0
 
 RTTimer2:				; CODE XREF: TapeReadFile+2Aj
-		inc	c
+                inc	c
 		in	a, (PIO_8255_PortC)
 		rla
 		jr	c, RTTimer2
@@ -2360,7 +2375,7 @@ RTTimer2:				; CODE XREF: TapeReadFile+2Aj
 		srl	a		; (timer1 + timer2) / 2
 
 RTHeader:				; Set High / Low time
-		ld	(IOBitTimer), a
+                ld	(IOBitTimer), a
 		ld	b, 0
 		call	TapeReadByte	; FileNo1
 		cp	h
@@ -2369,7 +2384,7 @@ RTHeader:				; Set High / Low time
 		inc	b		; ErrFlag
 
 ChkFNo2:				; CODE XREF: TapeReadFile+45j
-		call	TapeReadByte	; FileNo2
+                call	TapeReadByte	; FileNo2
 		ld	c, a
 		sub	l
 		or	b
@@ -2399,7 +2414,7 @@ ChkFNo2:				; CODE XREF: TapeReadFile+45j
 		push	bc
 
 TapeReadData:				; CODE XREF: TapeReadFile+7Dj
-		call	TapeReadByte
+                call	TapeReadByte
 		ld	(hl), a
 		inc	hl
 		dec	bc
@@ -2414,7 +2429,7 @@ TapeReadData:				; CODE XREF: TapeReadFile+7Dj
 		ld	e, 0
 
 Chksum:					; CODE XREF: TapeReadFile+8Fj
-		ld	a, e
+                ld	a, e
 		add	a, (hl)
 		ld	e, a
 		inc	hl
@@ -2429,11 +2444,11 @@ Chksum:					; CODE XREF: TapeReadFile+8Fj
 		ret	z
 
 TapeReadError:				; CODE XREF: TapeReadFile+34j
-					; TapeReadFile+6Cj ...
+                                        ; TapeReadFile+6Cj ...
 		ld	hl, 0FFFFh
 
 WrongFileNumber:			; CODE XREF: TapeReadFile+4Fj
-		scf
+                scf
 		ei
 		ret
 ; End of function TapeReadFile
@@ -2443,31 +2458,31 @@ WrongFileNumber:			; CODE XREF: TapeReadFile+4Fj
 
 
 TapeReadByte:				; CODE XREF: TapeReadFile+40p
-					; TapeReadFile:ChkFNo2p ...
+                                        ; TapeReadFile:ChkFNo2p ...
 		push	bc
 		push	de
 
 RTBWaitLow:				; CODE XREF: TapeReadByte+5j
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		rla
 		jr	c, RTBWaitLow
 
 RTBWaitHigh:				; CODE XREF: TapeReadByte+Aj
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		rla
 		jr	nc, RTBWaitHigh
 
 RTBStartBit:				; CODE XREF: TapeReadByte+1Dj
-		ld	c, 0
+                ld	c, 0
 
 RTStartBit:				; CODE XREF: TapeReadByte+12j
-		inc	c
+                inc	c
 		in	a, (PIO_8255_PortC)
 		rla
 		jr	c, RTStartBit
 
 SkipRGap:				; CODE XREF: TapeReadByte+17j
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		rla
 		jr	nc, SkipRGap
 		ld	a, (IOBitTimer)	; System Data
@@ -2477,16 +2492,16 @@ SkipRGap:				; CODE XREF: TapeReadByte+17j
 		ld	d, 0
 
 RTBStartTimer1:				; CODE XREF: TapeReadByte+3Fj
-		ld	c, 0
+                ld	c, 0
 
 RTBTimer1:				; CODE XREF: TapeReadByte+29j
-		inc	c
+                inc	c
 		in	a, (PIO_8255_PortC)
 		rla
 		jr	c, RTBTimer1
 
 SkipGapT1:				; CODE XREF: TapeReadByte+2Ej
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		rla
 		jr	nc, SkipGapT1
 		ld	a, (IOBitTimer)	; System Data
@@ -2496,14 +2511,14 @@ SkipGapT1:				; CODE XREF: TapeReadByte+2Ej
 		set	7, d
 
 NextReadBit:				; CODE XREF: TapeReadByte+36j
-		dec	b
+                dec	b
 		jr	z, TepeReadByteRet
 		rrc	d
 		jr	RTBStartTimer1
 ; ---------------------------------------------------------------------------
 
 TepeReadByteRet:			; CODE XREF: TapeReadByte+3Bj
-		ld	a, d
+                ld	a, d
 		pop	de
 		pop	bc
 		ret
@@ -2514,11 +2529,11 @@ TepeReadByteRet:			; CODE XREF: TapeReadByte+3Bj
 
 
 Extend4_8:				; CODE XREF: Extend4_8+1Fj
-					; Extend4_8+24j ...
+                                        ; Extend4_8+24j ...
 
 ; FUNCTION CHUNK AT 093A SIZE 000000EB BYTES
 
-		ld	hl, dpl_Epr_	; E
+                ld	hl, dpl_Epr_	; E
 		call	SENDDS_1	; 8-Digit-Anzeige (kom)
 		call	_INCH		; Lies Zeichen von Tastatur
 		cp	KeyCode_0
@@ -2555,7 +2570,7 @@ Extend4_8:				; CODE XREF: Extend4_8+1Fj
 		jp	z, ExtendF	; Fill Mem
 
 loc_909:
-		cp	KeyCode_EN
+                cp	KeyCode_EN
 		jp	z, MainLoop
 		jr	Extend4_8
 ; End of function Extend4_8
@@ -2565,7 +2580,7 @@ loc_909:
 
 
 ExtendInit:				; CODE XREF: Extend4_8+8Dp
-					; Extend4_8+CAp ...
+                                        ; Extend4_8+CAp ...
 		call	SENDDS_1	; 8-Digit-Anzeige (kom)
 		ld	de, 0FF00h
 		ld	hl, 4
@@ -2573,7 +2588,7 @@ ExtendInit:				; CODE XREF: Extend4_8+8Dp
 ; End of function ExtendInit
 
 ; ---------------------------------------------------------------------------
-		db seg7G
+                db seg7G
 		db seg7G
 		db seg7G
 		db seg7G
@@ -2581,7 +2596,7 @@ ExtendInit:				; CODE XREF: Extend4_8+8Dp
 		db seg7G
 		db seg7G
 Key0Display:	db seg7E|seg7F|seg7A|seg7B|seg7C|seg7D ; DATA XREF: Extend4_8:Extend0o
-					; 0--- ----
+                                        ; 0--- ----
 		db seg7G
 		db seg7G
 		db seg7G
@@ -2590,7 +2605,7 @@ Key0Display:	db seg7E|seg7F|seg7A|seg7B|seg7C|seg7D ; DATA XREF: Extend4_8:Exten
 		db seg7G
 		db seg7G
 Key1Display:	db seg7B|seg7C		; DATA XREF: Extend4_8:Extend1o
-					; 1--- ----
+                                        ; 1--- ----
 		db seg7G
 		db seg7G
 		db seg7G
@@ -2599,7 +2614,7 @@ Key1Display:	db seg7B|seg7C		; DATA XREF: Extend4_8:Extend1o
 		db seg7G
 		db seg7G
 Key2Display:	db seg7E|seg7G|seg7A|seg7B|seg7D ; DATA	XREF: Extend4_8:Extend2o
-					; 2
+                                        ; 2
 		db seg7G
 		db seg7G
 		db seg7G
@@ -2608,29 +2623,29 @@ Key2Display:	db seg7E|seg7G|seg7A|seg7B|seg7D ; DATA	XREF: Extend4_8:Extend2o
 		db seg7G
 		db seg7G
 Key9Display:	db seg7G|seg7A|seg7B|seg7C|seg7D ; DATA	XREF: Extend4_8+11Co
-					; 9
+                                        ; 9
 ; ---------------------------------------------------------------------------
 ; START	OF FUNCTION CHUNK FOR Extend4_8
 
 Extend0:				; CODE XREF: Extend4_8+Bj
-		ld	hl, Key0Display	; 0--- ----
+                ld	hl, Key0Display	; 0--- ----
 		call	ExtendInit
 		inc	hl
 
 loc_941:				; CODE XREF: Extend4_8+C5j
-		call	EditFlags
+                call	EditFlags
 		call	GetIOPC
 		bit	4, e
 		jr	nz, loc_94D
 		ld	c, 0
 
 loc_94D:				; CODE XREF: Extend4_8+99j
-		bit	3, e
+                bit	3, e
 		jr	nz, loc_953
 		ld	b, 0
 
 loc_953:				; CODE XREF: Extend4_8+9Fj
-		bit	2, e
+                bit	2, e
 		jr	z, loc_95C
 		ld	a, c
 		cpl
@@ -2638,7 +2653,7 @@ loc_953:				; CODE XREF: Extend4_8+9Fj
 		ld	c, a
 
 loc_95C:				; CODE XREF: Extend4_8+A5j
-		bit	1, e
+                bit	1, e
 		jr	z, loc_965
 		ld	a, b
 		cpl
@@ -2646,14 +2661,14 @@ loc_95C:				; CODE XREF: Extend4_8+A5j
 		ld	b, a
 
 loc_965:				; CODE XREF: Extend4_8+AEj
-		bit	0, e
+                bit	0, e
 		scf
 		ccf
 		jr	z, loc_96C
 		scf
 
 loc_96C:				; CODE XREF: Extend4_8+B9j
-		ld	a, b
+                ld	a, b
 		adc	a, c
 		and	1Fh
 		out	(0Ch), a
@@ -2663,11 +2678,11 @@ loc_96C:				; CODE XREF: Extend4_8+B9j
 ; ---------------------------------------------------------------------------
 
 Extend1:				; CODE XREF: Extend4_8+10j
-		ld	hl, Key1Display	; 1--- ----
+                ld	hl, Key1Display	; 1--- ----
 		call	ExtendInit
 
 loc_97D:				; CODE XREF: Extend4_8+E3j
-		call	EditFlags
+                call	EditFlags
 		call	GetIOPC
 		call	sub_AB1
 		ld	hl, LEDlow
@@ -2681,14 +2696,14 @@ loc_97D:				; CODE XREF: Extend4_8+E3j
 ; ---------------------------------------------------------------------------
 
 Extend2:				; CODE XREF: Extend4_8+15j
-		ld	hl, Key2Display	; 2
+                ld	hl, Key2Display	; 2
 		call	ExtendInit
 		xor	a
 		ld	(LEDlow), a
 		ld	bc, 0
 
 loc_9A2:				; CODE XREF: Extend4_8+110j
-		call	EditFlags
+                call	EditFlags
 		ld	a, d
 		cpl
 		and	e
@@ -2703,18 +2718,18 @@ loc_9A2:				; CODE XREF: Extend4_8+110j
 		ld	e, a
 
 loc_9BA:				; CODE XREF: Extend4_8+FAj
-		call	LEDout
+                call	LEDout
 		ld	l, 4
 		ld	d, e
 		jr	loc_9A2
 ; ---------------------------------------------------------------------------
 
 Extend3:				; CODE XREF: Extend4_8+1Aj
-		ld	hl, LEDlow
+                ld	hl, LEDlow
 		ld	b, 8
 
 loc_9C7:				; CODE XREF: Extend4_8+11Aj
-		ld	(hl), 0
+                ld	(hl), 0
 		inc	hl
 		djnz	loc_9C7
 		ld	hl, Key9Display	; 9
@@ -2724,7 +2739,7 @@ loc_9C7:				; CODE XREF: Extend4_8+11Aj
 		ld	bc, 0
 
 loc_9D7:				; CODE XREF: Extend4_8+157j
-		call	EditFlags
+                call	EditFlags
 		call	GetIOPC
 		ld	l, c
 		ld	h, 10h
@@ -2749,32 +2764,32 @@ loc_9D7:				; CODE XREF: Extend4_8+157j
 		jr	z, loc_A09
 
 loc_A01:				; CODE XREF: Extend4_8+13Dj
-					; Extend4_8+15Dj
+                                        ; Extend4_8+15Dj
 		call	LEDout
 
 loc_A04:				; CODE XREF: Extend4_8+173j
-		ld	l, 6
+                ld	l, 6
 		ld	d, e
 		jr	loc_9D7
 ; ---------------------------------------------------------------------------
 
 loc_A09:				; CODE XREF: Extend4_8+14Fj
-		ld	a, (LEDhight)
+                ld	a, (LEDhight)
 		ld	(hl), a
 		jr	loc_A01
 ; ---------------------------------------------------------------------------
 
 loc_A0F:				; CODE XREF: Extend4_8+132j
-		ld	a, (hl)
+                ld	a, (hl)
 		jr	loc_A16
 ; ---------------------------------------------------------------------------
 
 loc_A12:				; CODE XREF: Extend4_8+136j
-		ld	a, (PinIOPClsn)
+                ld	a, (PinIOPClsn)
 		ld	(hl), a
 
 loc_A16:				; CODE XREF: Extend4_8+160j
-		and	0Fh
+                and	0Fh
 		ld	h, a
 		ld	a, l
 		rrca
@@ -2791,7 +2806,7 @@ loc_A16:				; CODE XREF: Extend4_8+160j
 
 
 LEDout:					; CODE XREF: Extend4_8+DDp
-					; Extend4_8:loc_9BAp ...
+                                        ; Extend4_8:loc_9BAp ...
 		ld	a, (LEDhight)
 		ld	h, a
 		ld	a, (LEDlow)
@@ -2805,11 +2820,11 @@ LEDout:					; CODE XREF: Extend4_8+DDp
 
 
 EditFlags:				; CODE XREF: Extend4_8:loc_941p
-					; Extend4_8:loc_97Dp ...
+                                        ; Extend4_8:loc_97Dp ...
 		push	hl
 
 GetFlag:				; CODE XREF: EditFlags+40j
-		in	a, (IC8279_Ctrl)
+                in	a, (IC8279_Ctrl)
 		and	7
 		jr	z, NoKeyEntered	; ret addr
 		call	GetKey
@@ -2844,7 +2859,7 @@ GetFlag:				; CODE XREF: EditFlags+40j
 ; ---------------------------------------------------------------------------
 
 RetExtend4_8:				; CODE XREF: EditFlags+Ej
-		pop	hl		; ret addr
+                pop	hl		; ret addr
 		ex	(sp), hl	; Overwrite ret	level 2
 		ld	hl, Extend4_8
 		ex	(sp), hl
@@ -2852,13 +2867,13 @@ RetExtend4_8:				; CODE XREF: EditFlags+Ej
 ; ---------------------------------------------------------------------------
 
 ToggleFlag:				; CODE XREF: EditFlags+14j
-					; EditFlags+1Aj ...
+                                        ; EditFlags+1Aj ...
 		ld	a, e
 		xor	l
 		ld	e, a
 
 NoKeyEntered:				; CODE XREF: EditFlags+5j
-		pop	hl		; ret addr
+                pop	hl		; ret addr
 		ld	a, e		; bitmask
 		cp	d
 		ret	z		; EndEditFlag
@@ -2871,13 +2886,13 @@ NoKeyEntered:				; CODE XREF: EditFlags+5j
 		ld	hl, OUTBU
 
 binloop:				; CODE XREF: EditFlags+62j
-		ld	c, seg7B|seg7C	; 1
+                ld	c, seg7B|seg7C	; 1
 		rrca
 		jr	c, loc_A90
 		ld	c, seg7E|seg7F|seg7A|seg7B|seg7C|seg7D ; 0
 
 loc_A90:				; CODE XREF: EditFlags+5Cj
-		ld	(hl), c
+                ld	(hl), c
 		inc	hl
 		djnz	binloop		; 1
 		call	_OUTCH		; Refresh Display Buffer to Device
@@ -2893,7 +2908,7 @@ loc_A90:				; CODE XREF: EditFlags+5Cj
 
 
 GetIOPC:				; CODE XREF: Extend4_8+94p
-					; Extend4_8+D0p ...
+                                        ; Extend4_8+D0p ...
 		in	a, (BinIO_PC)
 		push	af
 		and	0Fh
@@ -2915,7 +2930,7 @@ GetIOPC:				; CODE XREF: Extend4_8+94p
 
 
 sub_AB1:				; CODE XREF: Extend4_8+D3p
-					; Extend4_8+103p ...
+                                        ; Extend4_8+103p ...
 		push	hl
 		push	bc
 		push	af
@@ -2926,12 +2941,12 @@ sub_AB1:				; CODE XREF: Extend4_8+D3p
 		ld	h, c
 
 chk1:					; CODE XREF: sub_AB1+8j
-		cp	1
+                cp	1
 		jr	nz, chk2
 		ld	h, 1
 
 chk2:					; CODE XREF: sub_AB1+Dj
-		cp	2
+                cp	2
 		jr	nz, loc_ACB
 		push	af
 		ld	a, c
@@ -2940,17 +2955,17 @@ chk2:					; CODE XREF: sub_AB1+Dj
 		pop	af
 
 loc_ACB:				; CODE XREF: sub_AB1+13j
-		cp	3
+                cp	3
 		jr	nz, loc_AD0
 		ld	h, b
 
 loc_AD0:				; CODE XREF: sub_AB1+1Cj
-		cp	4
+                cp	4
 		jr	nz, loc_AD6
 		ld	h, 0
 
 loc_AD6:				; CODE XREF: sub_AB1+21j
-		cp	5
+                cp	5
 		jr	nz, loc_AE2
 		push	af
 		ld	a, c
@@ -2960,7 +2975,7 @@ loc_AD6:				; CODE XREF: sub_AB1+21j
 		pop	af
 
 loc_AE2:				; CODE XREF: sub_AB1+27j
-		cp	6
+                cp	6
 		jr	nz, loc_AEE
 		push	af
 		ld	a, c
@@ -2970,7 +2985,7 @@ loc_AE2:				; CODE XREF: sub_AB1+27j
 		pop	af
 
 loc_AEE:				; CODE XREF: sub_AB1+33j
-		cp	7
+                cp	7
 		jr	nz, loc_AFA
 		push	af
 		ld	a, c
@@ -2980,7 +2995,7 @@ loc_AEE:				; CODE XREF: sub_AB1+33j
 		pop	af
 
 loc_AFA:				; CODE XREF: sub_AB1+3Fj
-		cp	8
+                cp	8
 		jr	nz, loc_B06
 		push	af
 		ld	a, c
@@ -2990,7 +3005,7 @@ loc_AFA:				; CODE XREF: sub_AB1+3Fj
 		pop	af
 
 loc_B06:				; CODE XREF: sub_AB1+4Bj
-		cp	9
+                cp	9
 		jr	nz, loc_B12
 		push	af
 		ld	a, c
@@ -3000,7 +3015,7 @@ loc_B06:				; CODE XREF: sub_AB1+4Bj
 		pop	af
 
 loc_B12:				; CODE XREF: sub_AB1+57j
-		cp	0Ah
+                cp	0Ah
 		jr	nz, loc_B1E
 		push	af
 		ld	a, c
@@ -3010,7 +3025,7 @@ loc_B12:				; CODE XREF: sub_AB1+57j
 		pop	af
 
 loc_B1E:				; CODE XREF: sub_AB1+63j
-		cp	0Bh
+                cp	0Bh
 		jr	nz, loc_B2A
 		push	af
 		ld	a, c
@@ -3020,12 +3035,12 @@ loc_B1E:				; CODE XREF: sub_AB1+63j
 		pop	af
 
 loc_B2A:				; CODE XREF: sub_AB1+6Fj
-		cp	0Ch
+                cp	0Ch
 		jr	nz, loc_B30
 		ld	h, 0Fh
 
 loc_B30:				; CODE XREF: sub_AB1+7Bj
-		cp	0Dh
+                cp	0Dh
 		jr	nz, loc_B3A
 		push	af
 		ld	a, (PinIOPClsn)
@@ -3033,17 +3048,17 @@ loc_B30:				; CODE XREF: sub_AB1+7Bj
 		pop	af
 
 loc_B3A:				; CODE XREF: sub_AB1+81j
-		cp	0Eh
+                cp	0Eh
 		jr	nz, loc_B3F
 		ld	h, c
 
 loc_B3F:				; CODE XREF: sub_AB1+8Bj
-		cp	0Fh
+                cp	0Fh
 		jr	nz, loc_B44
 		ld	h, c
 
 loc_B44:				; CODE XREF: sub_AB1+90j
-		ld	a, h
+                ld	a, h
 		and	0Fh
 		ld	(LEDhight), a
 		ld	hl, LEDlow
@@ -3061,7 +3076,7 @@ loc_B44:				; CODE XREF: sub_AB1+90j
 
 
 sub_B55:				; CODE XREF: sub_AB1+2Dp sub_AB1+39p
-		ld	b, 0
+                ld	b, 0
 ; End of function sub_B55
 
 
@@ -3069,7 +3084,7 @@ sub_B55:				; CODE XREF: sub_AB1+2Dp sub_AB1+39p
 
 
 sub_B57:				; CODE XREF: sub_AB1+45p sub_AB1+51p
-		call	sub_B68
+                call	sub_B68
 		call	sub_BA4
 		call	sub_BBA
 		ret
@@ -3080,7 +3095,7 @@ sub_B57:				; CODE XREF: sub_AB1+45p sub_AB1+51p
 
 
 sub_B61:				; CODE XREF: sub_AB1+5Dp sub_AB1+69p ...
-		call	sub_B68
+                call	sub_B68
 		call	sub_B8A
 		ret
 ; End of function sub_B61
@@ -3090,7 +3105,7 @@ sub_B61:				; CODE XREF: sub_AB1+5Dp sub_AB1+69p ...
 
 
 sub_B68:				; CODE XREF: sub_B57p sub_B61p
-		push	hl
+                push	hl
 		push	bc
 		push	af
 		pop	bc
@@ -3108,7 +3123,7 @@ sub_B68:				; CODE XREF: sub_B57p sub_B61p
 		xor	a
 
 loc_B7D:				; CODE XREF: sub_B68+12j
-		or	c
+                or	c
 		ld	c, a
 		ld	hl, LEDlow
 		ld	a, (hl)
@@ -3125,7 +3140,7 @@ loc_B7D:				; CODE XREF: sub_B68+12j
 
 
 sub_B8A:				; CODE XREF: sub_B61+3p
-		push	hl
+                push	hl
 		push	bc
 		ld	b, h
 		ld	hl, LEDlow
@@ -3139,7 +3154,7 @@ sub_B8A:				; CODE XREF: sub_B61+3p
 		xor	a
 
 loc_B9D:				; CODE XREF: sub_B8A+Fj
-					; sub_BA4:loc_BB8j ...
+                                        ; sub_BA4:loc_BB8j ...
 		or	c
 		and	0F0h
 		ld	(hl), a
@@ -3153,7 +3168,7 @@ loc_B9D:				; CODE XREF: sub_B8A+Fj
 
 
 sub_BA4:				; CODE XREF: sub_B57+3p
-		push	hl
+                push	hl
 		push	bc
 		ld	b, h
 		ld	hl, LEDlow
@@ -3168,7 +3183,7 @@ sub_BA4:				; CODE XREF: sub_B57+3p
 		xor	a
 
 loc_BB8:				; CODE XREF: sub_BA4+11j
-		jr	loc_B9D
+                jr	loc_B9D
 ; End of function sub_BA4
 
 
@@ -3176,7 +3191,7 @@ loc_BB8:				; CODE XREF: sub_BA4+11j
 
 
 sub_BBA:				; CODE XREF: sub_B57+6p
-		push	hl
+                push	hl
 		push	bc
 		ld	a, (LEDlow)
 		and	2
@@ -3186,7 +3201,7 @@ sub_BBA:				; CODE XREF: sub_B57+6p
 		ld	h, a
 
 loc_BC6:				; CODE XREF: sub_BBA+7j
-		ld	a, h
+                ld	a, h
 		cpl
 		and	b
 		and	c
@@ -3215,8 +3230,8 @@ ExtendE:				; CODE XREF: Extend4_8+51j
 
 ; FUNCTION CHUNK AT 070C SIZE 00000008 BYTES
 
-		call	GetStartEndAddr	; HL = start
-					; BC = size
+                call	GetStartEndAddr	; HL = start
+		                        ; BC = size
 		jp	c, RangeError
 		push	bc
 		ld	hl, dpl_Ad_d	; A
@@ -3242,10 +3257,10 @@ ExtendE:				; CODE XREF: Extend4_8+51j
 ; ---------------------------------------------------------------------------
 
 Downward:				; CODE XREF: ExtendE+17j
-		ldir
+                ldir
 
 retMove:				; CODE XREF: ExtendE+23j
-		call	WaitEnter
+                call	WaitEnter
 		jp	MainLoop
 ; End of function ExtendE
 
@@ -3255,14 +3270,14 @@ retMove:				; CODE XREF: ExtendE+23j
 ; Fill Mem
 
 ExtendF:				; CODE XREF: Extend4_8+56j
-		call	GetStartEndAddr	; HL = start
-					; BC = size
+                call	GetStartEndAddr	; HL = start
+		                        ; BC = size
 		jp	c, RangeError
 		call	EnterDataByte
 		ld	e, a
 
 fillloop:				; CODE XREF: ExtendF+Fj
-		ld	(hl), e
+                ld	(hl), e
 		inc	hl
 		dec	bc
 		ld	a, b
@@ -3279,7 +3294,7 @@ fillloop:				; CODE XREF: ExtendF+Fj
 ; BC = size
 
 GetStartEndAddr:			; CODE XREF: ExtendEp ExtendFp ...
-		ld	hl, dpl_Adrs	; A
+                ld	hl, dpl_Adrs	; A
 		call	ClrGetAddr
 		ld	(TempWord), hl
 		ld	hl, dpl_Adre	; A
@@ -3298,7 +3313,7 @@ GetStartEndAddr:			; CODE XREF: ExtendEp ExtendFp ...
 ; ---------------------------------------------------------------------------
 
 Valid:					; CODE XREF: GetStartEndAddr+1Aj
-		push	hl
+                push	hl
 		pop	bc
 		ld	hl, (TempWord)
 		ret
@@ -3310,7 +3325,7 @@ Valid:					; CODE XREF: GetStartEndAddr+1Aj
 ; Print	Register
 
 ExtendC:				; CODE XREF: Extend4_8+47j
-		call	PIOMode1InA
+                call	PIOMode1InA
 		jr	z, PrinterNotReady ; PC	& 10 = 0
 		ld	hl, RegsPrint
 		ld	b, 2
@@ -3320,13 +3335,13 @@ ExtendC:				; CODE XREF: Extend4_8+47j
 		ld	b, 0Fh
 
 Space16:				; CODE XREF: ExtendC+18j
-		call	PrintSpace
+                call	PrintSpace
 		djnz	Space16
 		ld	hl, PmtFlags
 		ld	b, 8
 
 PromtFlags:				; CODE XREF: ExtendC+24j
-		ld	c, (hl)
+                ld	c, (hl)
 		inc	hl
 		call	PrintC
 		djnz	PromtFlags
@@ -3349,26 +3364,26 @@ PromtFlags:				; CODE XREF: ExtendC+24j
 		call	PrinterCRLF
 
 LFRet:					; CODE XREF: ExtendD+6Ej
-		call	Pio2CRLF
+                call	Pio2CRLF
 
 RetPReg:				; CODE XREF: ExtendC+5Fj
-		jp	MainLoop
+                jp	MainLoop
 ; ---------------------------------------------------------------------------
 
 PrinterNotReady:			; CODE XREF: ExtendC+3j ExtendD+21j
-		call	FlashDisplay
+                call	FlashDisplay
 		jr	RetPReg
 ; End of function ExtendC
 
 ; ---------------------------------------------------------------------------
 RegsPrint:	db 'P', 'C', ' '        ; DATA XREF: ExtendC+5o
-		dw UserProgramPtr
+                dw UserProgramPtr
 		db 'S', 'P', ' '
 		dw UsetStackPtr
 PrmtTS:		db 'T', 'S', ' '        ; DATA XREF: ExtendC+Do
-		dw UsetStackPtr
+                dw UsetStackPtr
 PrmtAF:		db 'A', 'F', ' '        ; DATA XREF: ExtendC+29o
-		dw UserRegAF
+                dw UserRegAF
 		db 'B', 'C', ' '
 		dw UserRegBC
 		db 'D', 'E', ' '
@@ -3376,9 +3391,9 @@ PrmtAF:		db 'A', 'F', ' '        ; DATA XREF: ExtendC+29o
 		db 'H', 'L', ' '
 		dw UserRegHL
 PrmtFG:		db 'F', 'G', ' '        ; DATA XREF: ExtendC+31o
-		dw UserRegAF
+                dw UserRegAF
 PrmtAF_:	db 'A', 'F', '`'        ; DATA XREF: ExtendC+3Ao
-		dw UserRegAF_
+                dw UserRegAF_
 		db 'B', 'C', '`'
 		dw UserRegBC_
 		db 'D', 'E', '`'
@@ -3386,9 +3401,9 @@ PrmtAF_:	db 'A', 'F', '`'        ; DATA XREF: ExtendC+3Ao
 		db 'H', 'L', '`'
 		dw UserRegHL_
 PrmtFG_:	db 'F', 'G', '`'        ; DATA XREF: ExtendC+42o
-		dw UserRegAF_
+                dw UserRegAF_
 PrmtIX:		db 'I', 'X', ' '        ; DATA XREF: ExtendC+4Bo
-		dw UserRegIX
+                dw UserRegIX
 		db 'I', 'Y', ' '
 		dw UserRegIY
 		db 'I', '/', 'R'
@@ -3400,8 +3415,8 @@ PmtFlags:	db 'S', 'Z', 'x', 'H', 'x', 'V', 'N', 'C' ; DATA XREF: ExtendC+1Ao
 ; PrintMemdump
 
 ExtendD:				; CODE XREF: Extend4_8+4Cj
-		call	GetStartEndAddr	; HL = start
-					; BC = size
+                call	GetStartEndAddr	; HL = start
+		                        ; BC = size
 		jp	c, RangeError
 		ld	a, c
 		and	0F0h
@@ -3413,7 +3428,7 @@ ExtendD:				; CODE XREF: Extend4_8+4Cj
 		ld	b, 4
 
 div16:					; CODE XREF: ExtendD+16j
-		srl	d
+                srl	d
 		rr	e
 		djnz	div16
 		ld	c, e
@@ -3429,7 +3444,7 @@ div16:					; CODE XREF: ExtendD+16j
 		ld	b, 72
 
 PrintHeader:				; CODE XREF: ExtendD+2Fj
-		ld	c, (hl)
+                ld	c, (hl)
 		call	PrintC
 		inc	hl
 		djnz	PrintHeader
@@ -3438,13 +3453,13 @@ PrintHeader:				; CODE XREF: ExtendD+2Fj
 		pop	hl
 
 PrintAddr:				; CODE XREF: ExtendD+6Cj
-		push	bc
+                push	bc
 		call	PioHLSpaceOut
 		ld	b, 10h
 		push	hl
 
 PrintHex16:				; CODE XREF: ExtendD+45j
-		ld	a, (hl)
+                ld	a, (hl)
 		call	PrintHex
 		call	PrintSpace
 		inc	hl
@@ -3454,25 +3469,25 @@ PrintHex16:				; CODE XREF: ExtendD+45j
 		ld	b, 10h
 
 PrintAscii:				; CODE XREF: ExtendD+63j
-		ld	c, (hl)
+                ld	c, (hl)
 		ld	a, c
 		and	80h
 		jr	z, Printable
 
 notPrintable:				; CODE XREF: ExtendD+5Cj
-		ld	c, '.'
+                ld	c, '.'
 		jr	PrintAsciiChar
 ; ---------------------------------------------------------------------------
 
 Printable:				; CODE XREF: ExtendD+51j
-		ld	a, c
+                ld	a, c
 		and	7Fh
 		cp	' '
 		jr	c, notPrintable
 		ld	c, a
 
 PrintAsciiChar:				; CODE XREF: ExtendD+55j
-		call	PrintC
+                call	PrintC
 		inc	hl
 		djnz	PrintAscii
 		call	PrinterCRLF
@@ -3486,14 +3501,14 @@ PrintAsciiChar:				; CODE XREF: ExtendD+55j
 
 ; ---------------------------------------------------------------------------
 DumpHeader:	.ascii ' Addr. x0 x1 x2 x3 x4 x5 x6 x7 x8 x9 xA xB xC xD xE xF'
-					; DATA XREF: ExtendD+25o
+                                        ; DATA XREF: ExtendD+25o
 		.ascii '  0123456789ABCDEF'
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
 PIOMode1InA:				; CODE XREF: PRTINIj ExtendCp	...
-		ld	a, 8Ch		; Mode 1 PC[7-4] input
+                ld	a, 8Ch		; Mode 1 PC[7-4] input
 		out	(PIO_8255_CntrlStatus),	a
 		ld	a, 9		; Bit 4	set
 		out	(PIO_8255_CntrlStatus),	a
@@ -3508,12 +3523,12 @@ PIOMode1InA:				; CODE XREF: PRTINIj ExtendCp	...
 
 
 PioPromptHL3:				; CODE XREF: PioRegOutp
-					; PioRegOut:PromptIHLIp ...
+                                        ; PioRegOut:PromptIHLIp ...
 		push	bc
 		ld	b, 3
 
 loc_DC9:				; CODE XREF: PioPromptHL3+8j
-		ld	c, (hl)
+                ld	c, (hl)
 		inc	hl
 		call	PrintC
 		djnz	loc_DC9
@@ -3529,7 +3544,7 @@ loc_DC9:				; CODE XREF: PioPromptHL3+8j
 
 
 PrintReg_b:				; CODE XREF: ExtendC+Ap ExtendC+2Ep ...
-		push	hl
+                push	hl
 		call	PioRegOut
 		pop	hl
 		ld	de, 5
@@ -3546,37 +3561,37 @@ PioRegOut:				; CODE XREF: PrintReg_b+1p
 
 ; FUNCTION CHUNK AT 0E3B SIZE 00000003 BYTES
 
-		call	PioPromptHL3
+                call	PioPromptHL3
 		jr	PioHLSpaceOut
 ; ---------------------------------------------------------------------------
 
 PromptIHLI:				; CODE XREF: ExtendC+10p
-		call	PioPromptHL3
+                call	PioPromptHL3
 		call	HL_IHLI		; HL = (HL)
 		jr	PioHLSpaceOut
 ; ---------------------------------------------------------------------------
 
 PromtBinByte:				; CODE XREF: ExtendC+34p ExtendC+45p
-		call	PioPromptHL3
+                call	PioPromptHL3
 		ld	b, 8
 		ld	a, l
 
 loPromtBinByte:				; CODE XREF: PioRegOut+1Dj
-		ld	c, '1'
+                ld	c, '1'
 		rlca
 		jr	c, BitOut
 
 NulBitOut:
-		ld	c, '0'
+                ld	c, '0'
 
 BitOut:					; CODE XREF: PioRegOut+16j
-		call	PrintC
+                call	PrintC
 		djnz	loPromtBinByte
 		ret
 ; ---------------------------------------------------------------------------
 
 PioHLSpaceOut:				; CODE XREF: ExtendD+37p PioRegOut+3j	...
-		call	PioHLHexOut
+                call	PioHLHexOut
 		jr	Pio2Space
 ; End of function PioRegOut
 
@@ -3585,7 +3600,7 @@ PioHLSpaceOut:				; CODE XREF: ExtendD+37p PioRegOut+3j	...
 
 
 PioHLHexOut:				; CODE XREF: PioRegOut:PioHLSpaceOutp
-		call	PrintSpace
+                call	PrintSpace
 		ld	a, h
 		call	PrintHex
 		ld	a, l
@@ -3596,7 +3611,7 @@ PioHLHexOut:				; CODE XREF: PioRegOut:PioHLSpaceOutp
 
 
 PrintHex:				; CODE XREF: ExtendD+3Ep
-					; PioHLHexOut+4p
+                                        ; PioHLHexOut+4p
 		push	af
 		call	AsciMSN
 		ld	c, a
@@ -3615,7 +3630,7 @@ PrintHex:				; CODE XREF: ExtendD+3Ep
 
 
 AsciMSN:				; CODE XREF: PrintHex+1p
-		rrca
+                rrca
 		rrca
 		rrca
 		rrca
@@ -3626,7 +3641,7 @@ AsciMSN:				; CODE XREF: PrintHex+1p
 
 
 AsciiHex:				; CODE XREF: PrintHex+Ap
-		and	0Fh
+                and	0Fh
 		add	a, '0'
 		cp	':'
 		ret	c
@@ -3640,7 +3655,7 @@ AsciiHex:				; CODE XREF: PrintHex+Ap
 ; HL = (HL)
 
 HL_IHLI:				; CODE XREF: PioPromptHL3+10p
-					; PioPromptHL3+13j ...
+                                        ; PioPromptHL3+13j ...
 		ld	e, (hl)
 		inc	hl
 		ld	d, (hl)
@@ -3652,14 +3667,14 @@ HL_IHLI:				; CODE XREF: PioPromptHL3+10p
 ; START	OF FUNCTION CHUNK FOR PioRegOut
 
 Pio2Space:				; CODE XREF: PioRegOut+23j
-		call	PrintSpace
+                call	PrintSpace
 ; END OF FUNCTION CHUNK	FOR PioRegOut
 
 ; =============== S U B	R O U T	I N E =======================================
 
 
 PrintSpace:				; CODE XREF: ExtendC:Space16p
-					; ExtendD+41p ...
+                                        ; ExtendD+41p ...
 		ld	c, ' '
 		jr	PrintC
 ; End of function PrintSpace
@@ -3669,7 +3684,7 @@ PrintSpace:				; CODE XREF: ExtendC:Space16p
 
 
 Pio2CRLF:				; CODE XREF: ExtendC:LFRetp
-					; ExtendD+31p
+                                        ; ExtendD+31p
 		call	PrinterCRLF
 ; End of function Pio2CRLF
 
@@ -3678,7 +3693,7 @@ Pio2CRLF:				; CODE XREF: ExtendC:LFRetp
 
 
 PrinterCRLF:				; CODE XREF: ExtendC+26p ExtendC+37p ...
-		ld	c, 0Ah
+                ld	c, 0Ah
 		call	PrintC
 		ld	c, 0Dh
 ; End of function PrinterCRLF
@@ -3688,10 +3703,10 @@ PrinterCRLF:				; CODE XREF: ExtendC+26p ExtendC+37p ...
 
 
 PrintC:					; CODE XREF: PRTCHTj ExtendC+21p ...
-		push	af
+                push	af
 
 wpio20:					; CODE XREF: PrintC+5j
-		in	a, (PIO_8255_PortC)
+                in	a, (PIO_8255_PortC)
 		and	20h		; Busy
 		jr	nz, wpio20
 		ld	a, c
@@ -3705,18 +3720,18 @@ wpio20:					; CODE XREF: PrintC+5j
 
 
 OutcChksum:				; CODE XREF: DoRst38:OutcWRxp
-					; DoRst38+97p ...
+                                        ; DoRst38+97p ...
 		push	af
 
 WTxRDY:					; CODE XREF: OutcChksum+5j
-		in	a, (SIO8251_CntrPort)
+                in	a, (SIO8251_CntrPort)
 		bit	0, a		; TxRDY
 		jr	z, WTxRDY
 		ld	a, c
 		out	(SIO8251_Dataport), a
 
 WRxRDY:					; CODE XREF: OutcChksum+Ej
-		in	a, (SIO8251_CntrPort)
+                in	a, (SIO8251_CntrPort)
 		bit	TxEMPTY, a	; Tranmitter empty
 		jr	z, WRxRDY
 		pop	af
@@ -3729,7 +3744,7 @@ WRxRDY:					; CODE XREF: OutcChksum+Ej
 
 
 SioInCChkSum:				; CODE XREF: DoRst38+2Dp
-					; DoRst38:Checkp ...
+                                        ; DoRst38:Checkp ...
 		push	af
 		call	WaitRxRDY	; cy if	RxReady
 		jr	nc, NoByte
@@ -3741,7 +3756,7 @@ SioInCChkSum:				; CODE XREF: DoRst38+2Dp
 ; ---------------------------------------------------------------------------
 
 NoByte:					; CODE XREF: SioInCChkSum+4j
-		pop	af
+                pop	af
 		ex	(sp), hl
 		ld	hl, SendBreak
 		ex	(sp), hl
@@ -3754,11 +3769,11 @@ NoByte:					; CODE XREF: SioInCChkSum+4j
 ; cy if	RxReady
 
 WaitRxRDY:				; CODE XREF: SioInCChkSum+1p
-		push	bc
+                push	bc
 		ld	bc, 4000
 
 WaitRX:					; CODE XREF: WaitRxRDY+Dj
-		in	a, (SIO8251_CntrPort)
+                in	a, (SIO8251_CntrPort)
 		rrca
 		rrca
 		jr	c, RetRXWait	; RxRDY
@@ -3768,7 +3783,7 @@ WaitRX:					; CODE XREF: WaitRxRDY+Dj
 		jr	nz, WaitRX
 
 RetRXWait:				; CODE XREF: WaitRxRDY+8j
-		pop	bc
+                pop	bc
 		ret
 ; End of function WaitRxRDY
 
@@ -3777,11 +3792,11 @@ RetRXWait:				; CODE XREF: WaitRxRDY+8j
 
 
 TxDisable:				; CODE XREF: DoRst38+28p
-		push	af
+                push	af
 		res	DTR, e		; Data Terminal	Ready
 
 SIOCtrl:				; CODE XREF: TxRxDisable+3j
-					; TxEnable+3j ...
+                                        ; TxEnable+3j ...
 		ld	a, e
 		out	(SIO8251_CntrPort), a
 		pop	af
@@ -3793,7 +3808,7 @@ SIOCtrl:				; CODE XREF: TxRxDisable+3j
 
 
 TxRxDisable:				; CODE XREF: DoRst38+47p
-		push	af
+                push	af
 		res	RTS, e		; Request to send
 		jr	SIOCtrl
 ; End of function TxRxDisable
@@ -3803,7 +3818,7 @@ TxRxDisable:				; CODE XREF: DoRst38+47p
 
 
 TxEnable:				; CODE XREF: DoRst38:retTxENp
-		push	af
+                push	af
 		set	DTR, e		; Data Terminal	Ready
 		jr	SIOCtrl
 ; End of function TxEnable
@@ -3813,7 +3828,7 @@ TxEnable:				; CODE XREF: DoRst38:retTxENp
 
 
 TxRxEnable:				; CODE XREF: DoRst38:TxRxENOutcWRxp
-					; DoRst38+93p
+                                        ; DoRst38+93p
 		push	af
 		set	RTS, e		; Request to send
 		jr	SIOCtrl
@@ -3824,7 +3839,7 @@ TxRxEnable:				; CODE XREF: DoRst38:TxRxENOutcWRxp
 
 
 DoRst38:				; CODE XREF: INTRPTj
-		push	af
+                push	af
 		in	a, (SIO8251_CntrPort)
 		bit	RxRDY, a	; Check	SIO TxInt
 		jr	z, UserInt
@@ -3845,7 +3860,7 @@ DoRst38:				; CODE XREF: INTRPTj
 		jr	nz, NMIRet
 
 DoSioCmd:				; CODE XREF: DoRst38+1Bj
-		push	de
+                push	de
 		push	hl
 		ld	d, b		; state
 		ld	a, (SIOMode)
@@ -3865,38 +3880,38 @@ DoSioCmd:				; CODE XREF: DoRst38+1Bj
 		pop	af
 
 SendBreak:				; CODE XREF: DoRst38+64j DoRst38+90j
-					; DATA XREF: ...
+                                        ; DATA XREF: ...
 		ld	c, 0
 
 TxRxENOutcWRx:				; CODE XREF: DoRst38+67j
-		call	TxRxEnable
+                call	TxRxEnable
 
 OutcWRx:				; CODE XREF: DoRst38+ADj
-		call	OutcChksum
+                call	OutcChksum
 		call	TxRxDisable
 
 retTxEN:				; CODE XREF: DoRst38+60j
-		call	TxEnable
+                call	TxEnable
 		pop	hl
 		pop	de
 
 NMIRet:					; CODE XREF: DoRst38+13j DoRst38+17j ...
-		pop	bc
+                pop	bc
 		pop	af
 		ei
 		ret
 ; ---------------------------------------------------------------------------
 
 UserInt:				; CODE XREF: DoRst38+5j
-		pop	af
+                pop	af
 		jp	UserIntProc
 ; ---------------------------------------------------------------------------
 
 ChkCecksum:				; CODE XREF: DoRst38+34j
-		pop	af
+                pop	af
 
 Check:					; CODE XREF: DoRst38+7Dj
-		call	SioInCChkSum
+                call	SioInCChkSum
 		ld	b, a
 		ld	a, (sioCmd)
 		or	a
@@ -3909,7 +3924,7 @@ Check:					; CODE XREF: DoRst38+7Dj
 ; ---------------------------------------------------------------------------
 
 SIOReadBLK:				; CODE XREF: DoRst38+3Cj
-		pop	af		; addr,len, data...
+                pop	af		; addr,len, data...
 		call	SioInCChkSum
 		ld	l, c
 		call	SioInCChkSum
@@ -3918,7 +3933,7 @@ SIOReadBLK:				; CODE XREF: DoRst38+3Cj
 		ld	b, c
 
 sioread:				; CODE XREF: DoRst38+7Bj
-		call	SioInCChkSum
+                call	SioInCChkSum
 		ld	(hl), c
 		inc	hl
 		djnz	sioread
@@ -3926,7 +3941,7 @@ sioread:				; CODE XREF: DoRst38+7Bj
 ; ---------------------------------------------------------------------------
 
 SioWriteBLK:				; CODE XREF: DoRst38+38j
-		pop	af
+                pop	af
 		call	SioInCChkSum
 		ld	l, c
 		call	SioInCChkSum
@@ -3946,7 +3961,7 @@ SioWriteBLK:				; CODE XREF: DoRst38+38j
 		call	OutcChksum
 
 siowrite:				; CODE XREF: DoRst38+A8j
-		ld	c, (hl)
+                ld	c, (hl)
 		call	OutcChksum
 		inc	hl
 		djnz	siowrite
@@ -3960,7 +3975,7 @@ siowrite:				; CODE XREF: DoRst38+A8j
 
 
 _KEYSTAT:				; CODE XREF: KEYSTATj
-		in	a, (IC8279_Ctrl)
+                in	a, (IC8279_Ctrl)
 		and	FIFOMSK		; Maske	für Zeichenzahl
 		ret	z		; Kein Zeichen
 		ld	a, 0FFh
@@ -3972,7 +3987,7 @@ _KEYSTAT:				; CODE XREF: KEYSTATj
 
 
 BreakTxSIO:				; CODE XREF: V24INITj
-		push	hl
+                push	hl
 		push	bc
 		ld	hl,  SIO8251Config+3
 		ld	(hl), 25h	; 25:RTS, SBrk,TxEN
@@ -3989,7 +4004,7 @@ BreakTxSIO:				; CODE XREF: V24INITj
 
 
 ChkSioOutRdy:				; CODE XREF: V24STATj
-		in	a, (SIO8251_CntrPort)
+                in	a, (SIO8251_CntrPort)
 		bit	RxRDY, a	; Receiver Ready
 		ret
 ; End of function ChkSioOutRdy
@@ -3999,7 +4014,7 @@ ChkSioOutRdy:				; CODE XREF: V24STATj
 
 
 SioGeta:				; CODE XREF: V24INj SioGeta+4j
-		in	a, (SIO8251_CntrPort)
+                in	a, (SIO8251_CntrPort)
 		bit	RxRDY, a	; Receiver Ready
 		jr	z, SioGeta
 		in	a, (SIO8251_Dataport)
@@ -4011,10 +4026,10 @@ SioGeta:				; CODE XREF: V24INj SioGeta+4j
 
 
 SioPuta:				; CODE XREF: V24OUTj
-		push	af
+                push	af
 
 waitSio:				; CODE XREF: SioPuta+5j
-		in	a, (SIO8251_CntrPort)
+                in	a, (SIO8251_CntrPort)
 		bit	0, a		; TxRdy
 		jr	z, waitSio
 		pop	af
@@ -4027,14 +4042,14 @@ waitSio:				; CODE XREF: SioPuta+5j
 
 
 UserDisplBufferOut:			; CODE XREF: OUTDISj
-		push	hl
+                push	hl
 		push	bc
 		push	af
 		ld	hl, UserDisplBuffer
 		ld	bc, 600h | UserDisplay_1 ; 6 segmente start port 10 Display MSD
 
 dsplloop:				; CODE XREF: UserDisplBufferOut+12j
-		ld	a, (hl)
+                ld	a, (hl)
 		and	1Fh
 		or	80h		; Output enabled
 		out	(c), a
@@ -4054,10 +4069,10 @@ dsplloop:				; CODE XREF: UserDisplBufferOut+12j
 ; JP e000h if code exist
 
 ExtendA:				; CODE XREF: Extend4_8+3Dj
-		ld	hl, 0E000h
+                ld	hl, 0E000h
 
 JpHLIf:					; CODE XREF: ExtendB+3j Extend9+3j
-		ld	a, (hl)
+                ld	a, (hl)
 		cp	0C3h		; JP nn
 		jp	nz, MainLoop
 		jp	(hl)
@@ -4069,7 +4084,7 @@ JpHLIf:					; CODE XREF: ExtendB+3j Extend9+3j
 ; JP e003h if code exist
 
 ExtendB:				; CODE XREF: Extend4_8+42j
-		ld	hl, 0E003h
+                ld	hl, 0E003h
 		jr	JpHLIf
 ; End of function ExtendB
 
@@ -4079,72 +4094,72 @@ ExtendB:				; CODE XREF: Extend4_8+42j
 ; JP 2808h if code exist
 
 Extend9:				; CODE XREF: Extend4_8+38j
-		ld	hl, 2808h
+                ld	hl, 2808h
 		jr	JpHLIf
 ; End of function Extend9
 
 ; ---------------------------------------------------------------------------
-	 dc  3Dh , 0FFh
+         dc  3Dh , 0FFh
 CopyRight:	.ascii '(c)SEL85/V3.2'
 ; end KALTSTART of 'ROM'
 
 ; ===========================================================================
 
 ; Segment type:	Pure data
-	cseg	; USRRAM
-		org 1000h
+        cseg	; USRRAM
+	        org 1000h
 UserRamStart:	ds 700h			; DATA XREF: start+4o
 ; end KALTSTART of 'USRRAM'
 
 ; ===========================================================================
 
 ; Segment type:	Pure data
-	cseg	; USRSTACK
-		org 1700h
+        cseg	; USRSTACK
+	        org 1700h
 UserRST08:	ds 3			; CODE XREF: RESTART_1j
 UserRST18:	ds 3			; CODE XREF: RESTART_3j
 UserRST20:	ds 3			; CODE XREF: RESTART_4j
 UserRST28:	ds 3			; CODE XREF: RESTART_5j
 UserRST30:	ds 3			; CODE XREF: RESTART_6j
 UserIntProc:	ds 5			; CODE XREF: DoRst38+54j
-					; DATA XREF: InitSys+Dw ...
+                                        ; DATA XREF: InitSys+Dw ...
 SIO8251Config:	ds 4			; DATA XREF: InitSys+28o BreakTxSIO+7o ...
-		ds 1
+                ds 1
 		public UserDisplBuffer
 UserDisplBuffer:ds 6			; DATA XREF: UserDisplBufferOut+3o
-		ds 61h
+                ds 61h
 ; end KALTSTART of 'USRSTACK'
 
 ; ===========================================================================
 
 ; Segment type:	Pure data
-	cseg	; USRSTACK
-		org 1780h
+        cseg	; USRSTACK
+	        org 1780h
 IOBitTimer:	ds 1			; DATA XREF: start+Do
-					; TapeReadFile:RTHeaderw ...
+                                        ; TapeReadFile:RTHeaderw ...
 					; System Data
 		ds 1
 LEDlow:		ds 1			; DATA XREF: Extend4_8+D6o
-					; Extend4_8+ECw ...
+                                        ; Extend4_8+ECw ...
 LEDhight:	ds 1			; DATA XREF: Extend4_8+FFr
-					; Extend4_8+140r ...
+                                        ; Extend4_8+140r ...
 PinIOPClsn:	ds 1			; DATA XREF: Extend4_8:loc_A12r
-					; GetIOPC+6w ...
+                                        ; GetIOPC+6w ...
 PinIOPCmsn:	ds 1			; DATA XREF: GetIOPC+11w
 sioCmd:		ds 1			; DATA XREF: DoRst38+Bw DoRst38+5Cr
 SIOMode:	ds 1			; DATA XREF: InitSys+35w DoRst38+24r
 sioCmdState:	ds 1			; DATA XREF: DoRst38+Er
 LEDStatus:	ds 1			; DATA XREF: InitSys+3w
-		ds 3Bh
+                ds 3Bh
 SysStackTop:	ds 1			; DATA XREF: NMI+3Ao start+13o
-		ds 1
+                ds 1
 BreakCounter:	ds 1			; DATA XREF: Breakpoint+Ar start+1w ...
 BreakPointAddr:	ds 2			; DATA XREF: Func_BP+Ew
-					; RestorBreakPoint+7r ...
+                                        ; RestorBreakPoint+7r ...
 BreakPointOrig:	ds 1			; DATA XREF: Func_BP+11o
-					; RestorBreakPoint+Ar ...
+                                        ; RestorBreakPoint+Ar ...
 BreakPointCode:	ds 1			; DATA XREF: RestorBreakPointr
-					; RestorBreakPoint+Fw
+                                        ; RestorBreakPoint+Fw
 		ds 1
 		ds 1
 TempByte:	ds 1			; DATA XREF: NMIw NMI+7r ...
@@ -4152,7 +4167,7 @@ TempWord:	ds 2			; DATA XREF: NMI+Aw NMI+18r ...
 RegIR:		ds 2			; DATA XREF: NMI+2Dw ROM:03DCo ...
 UsetStackPtr:	ds 2			; DATA XREF: NMI+11w start+10w ...
 UserProgramPtr:	ds 2			; DATA XREF: NMI:SafeUserBreakw
-					; NMI+43r ...
+                                        ; NMI+43r ...
 UserRegAF:	ds 2			; DATA XREF: ROM:03A0o	GoUserProco ...
 UserRegBC:	ds 2			; DATA XREF: ROM:03A5o	ROM:0CBDo
 UserRegDE:	ds 2			; DATA XREF: ROM:03AAo	ROM:0CC2o
@@ -4167,11 +4182,11 @@ UserRegSP:	ds 2			; DATA XREF: NMI+15o
 DataBuffer:	ds 1			; DATA XREF: Func_MM+Aw Func_MM+51r ...
 AddrBuffer:	ds 2			; DATA XREF: start+Aw ClrGetAddr+4w ...
 SysDisplayBackup:ds 8			; DATA XREF: SafeDisply+3o
-					; RestoreDisplayo
+                                        ; RestoreDisplayo
 		public OUTBU
 OUTBU:		ds 8			; DATA XREF: GetAddr:acceptaddro
-					; FillDisplo ...
+                                        ; FillDisplo ...
 ; end KALTSTART of 'USRSTACK'
 
 
-		end KALTSTART
+                end KALTSTART
