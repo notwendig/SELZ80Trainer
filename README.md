@@ -11,8 +11,30 @@ SELZ80Trainer combines a Z80 CPU emulator, the trainer ROM, simulated front-pane
 controls, LEDs and seven-segment displays in a desktop application. The ROM is assembled
 from source as part of the CMake build.
 
-![SEL Z80 Trainer](docs/images/SELZ80Trainer.png)
+## Screenshots
 
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <b>SEL Z80 Trainer</b><br><br>
+      <img src="docs/images/SELZ80Trainer.png" alt="SEL Z80 Trainer" width="100%">
+    </td>
+    <td align="center" width="50%">
+      <b>System 0 – 4-Bit Adder</b><br><br>
+      <img src="docs/images/selz80trainer-system0-4bit-adder.png" alt="System 0 – 4-Bit Adder" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>CamelForth</b><br><br>
+      <img src="docs/images/selz80trainer-forth.png" alt="CamelForth" width="100%">
+    </td>
+    <td align="center" width="50%">
+      <b>CamelForth Screen</b><br><br>
+      <img src="docs/images/forth-screen.png" alt="CamelForth Screen" width="100%">
+    </td>
+  </tr>
+</table>
 ## Features
 
 - Zilog Z80 CPU emulation
@@ -182,19 +204,3 @@ The `Z80` and `qvintage` directories are Git submodules and remain subject to th
 license terms of their respective upstream repositories. Images, manuals, logos and
 other historical material may have separate rights or trademark restrictions; their
 presence in the repository does not imply transfer of trademark rights.
-
-## Screenshots
-
-### SEL Z80 Trainer
-
-The main SEL Z80 Trainer interface with the original-style hexadecimal
-display, LEDs, switches and function/register keypad.
-
-![SEL Z80 Trainer](docs/images/selz80trainer-main.png)
-
-### System 0 – 4-Bit Adder
-
-Interactive visualization of the SEL training system's 4-bit accumulator,
-flag register, ALU, ROM decoder, input switches and status outputs.
-
-![SEL Z80 Trainer – System 0 – 4-Bit Adder](docs/images/selz80trainer-system0-4bit-adder.png)
