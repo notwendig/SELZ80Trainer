@@ -182,3 +182,19 @@ The `Z80` and `qvintage` directories are Git submodules and remain subject to th
 license terms of their respective upstream repositories. Images, manuals, logos and
 other historical material may have separate rights or trademark restrictions; their
 presence in the repository does not imply transfer of trademark rights.
+
+## Screenshots
+
+### SEL Z80 Trainer
+
+The main SEL Z80 Trainer interface with the original-style hexadecimal
+display, LEDs, switches and function/register keypad.
+
+![SEL Z80 Trainer](docs/images/selz80trainer-main.png)
+
+### System 0 – 4-Bit Adder
+
+Interactive visualization of the SEL training system's 4-bit accumulator,
+flag register, ALU, ROM decoder, input switches and status outputs.
+
+![SEL Z80 Trainer – System 0 – 4-Bit Adder](docs/images/selz80trainer-system0-4bit-adder.png)

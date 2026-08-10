@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/rom">
         <file alias="monitor.bin">SELRom.bin</file>
+        <file alias="forth.bin">camel80.bin</file>
     </qresource>
     <qresource prefix="/pictures">
         <file alias="logo.png">SELLogo.png</file>

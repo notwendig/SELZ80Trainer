@@ -189,7 +189,7 @@ FMMOD2: DW EXIT
 
 ;C *      n1 n2 -- n3       signed multiply
 ;   M* DROP ;
-	head STAR,*,docolon
+	head FSTAR,*,docolon
 		dw MSTAR,DROP,EXIT
 
 ;C /MOD   n1 n2 -- n3 n4    signed divide/rem'dr

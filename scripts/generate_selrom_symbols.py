@@ -1,13 +1,4 @@
 #!/usr/bin/env python3
-"""
-Generate SELRom.inc and SELRom.h from the zmac Symbol Table in SELRom.lst.
-
-The assembler include keeps the original zmac symbol names.
-For C/C++, known assembler-only names can be mapped explicitly.
-
-Usage:
-    python3 generate_selrom_symbols.py SELRom.lst SELRom.inc SELRom.h
-"""
 
 from __future__ import annotations
 
@@ -17,13 +8,39 @@ import sys
 from pathlib import Path
 
 
+# Symbols required by CamelForth from SELRom.
+API_LABELS = {
+    "v24out",
+    "v24stat",
+    "v24in",
+    "warmstart",
+    "sendds_1",
+    "senda",
+    "sendhl",
+    "gethx",
+    "getadr",
+    "delay_1",
+    "conv7seg",
+    "keystat",
+}
+
+
+# zmac symbol table:
+#
+#   EQU/DEFL:
+#       NAME      =1234      4660
+#
+#   ordinary label:
+#       NAME       1234      4660
+#
+# '/' is used for common symbols and is ignored here.
 SYMBOL_RE = re.compile(
     r"""^
         (?P<name>\S+)
+        \s+
+        (?P<sep>[=/]?)
         \s*
-        =
-        \s*
-        (?P<hex>[0-9A-Fa-f]{2,8})
+        (?P<hex>[0-9A-Fa-f]{1,8})
         \s+
         (?P<decimal>-?\d+)
         (?:\s+.*)?
@@ -34,14 +51,12 @@ SYMBOL_RE = re.compile(
 
 C_IDENT_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
-# Explicit translations from legal zmac symbols to legal C/C++ identifiers.
-# Keep this list small and intentional; do not silently mangle arbitrary names.
-CPP_NAME_MAP: dict[str, str] = {
+CPP_NAME_MAP = {
     "KeyCode_??": "KeyCode_RS",
 }
 
 
-def extract_equates(text: str) -> list[tuple[str, int]]:
+def extract_symbols(text: str) -> list[tuple[str, int]]:
     lines = text.splitlines()
 
     try:
@@ -50,13 +65,15 @@ def extract_equates(text: str) -> list[tuple[str, int]]:
             if line.strip() == "Symbol Table:"
         ) + 1
     except StopIteration:
-        raise ValueError("zmac 'Symbol Table:' section not found in listing")
+        raise ValueError("zmac 'Symbol Table:' section not found")
 
     symbols: list[tuple[str, int]] = []
     seen: set[str] = set()
+    found_api: set[str] = set()
 
     for line in lines[start:]:
         line = line.replace("\f", "").rstrip()
+
         if not line:
             continue
 
@@ -65,7 +82,15 @@ def extract_equates(text: str) -> list[tuple[str, int]]:
             continue
 
         name = m.group("name")
+        lname = name.lower()
+        sep = m.group("sep")
         value = int(m.group("hex"), 16)
+
+        # Keep:
+        #   - all EQU/DEFL symbols
+        #   - explicitly required SELRom address labels
+        if sep != "=" and lname not in API_LABELS:
+            continue
 
         if name in seen:
             continue
@@ -73,10 +98,19 @@ def extract_equates(text: str) -> list[tuple[str, int]]:
         seen.add(name)
         symbols.append((name, value))
 
-    if not symbols:
+        if lname in API_LABELS:
+            found_api.add(lname)
+
+    missing = sorted(API_LABELS - found_api)
+
+    if missing:
         raise ValueError(
-            "No EQU/DEFL symbols found after zmac 'Symbol Table:' section"
+            "Required SELRom API symbols not found in zmac symbol table: "
+            + ", ".join(missing)
         )
+
+    if not symbols:
+        raise ValueError("No SELRom symbols found")
 
     return symbols
 
@@ -88,6 +122,7 @@ def asm_hex(value: int) -> str:
         width = 4
     else:
         width = 8
+
     return f"0{value:0{width}X}h"
 
 
@@ -98,6 +133,7 @@ def cpp_hex(value: int) -> str:
         width = 4
     else:
         width = 8
+
     return f"0x{value:0{width}X}"
 
 
@@ -106,8 +142,8 @@ def cpp_name(name: str) -> str:
 
     if not C_IDENT_RE.match(mapped):
         raise ValueError(
-            f"Symbol '{name}' is not a valid C/C++ identifier and has no "
-            "explicit mapping in CPP_NAME_MAP"
+            f"Symbol '{name}' is not a valid C/C++ identifier "
+            "and has no CPP_NAME_MAP entry"
         )
 
     return mapped
@@ -117,19 +153,22 @@ def generate_inc(
     symbols: list[tuple[str, int]],
     source_name: str,
 ) -> str:
+
     width = max(len(name) for name, _ in symbols)
 
     out = [
-        "; ------------------------------------------------------------------",
+        "; --------------------------------------------------------------",
         f"; GENERATED FILE - source: {source_name}",
         "; Do not edit by hand.",
-        "; Original zmac EQU/DEFL symbol names are preserved.",
-        "; ------------------------------------------------------------------",
+        "; SELRom EQU/DEFL symbols plus exported ROM API labels.",
+        "; --------------------------------------------------------------",
         "",
     ]
 
     for name, value in symbols:
-        out.append(f"{name:<{width}} equ {asm_hex(value)}")
+        out.append(
+            f"{name:<{width}} equ {asm_hex(value)}"
+        )
 
     out.append("")
     return "\n".join(out)
@@ -139,39 +178,40 @@ def generate_header(
     symbols: list[tuple[str, int]],
     source_name: str,
 ) -> str:
-    mapped_symbols: list[tuple[str, int, str]] = []
-    used_names: dict[str, str] = {}
+
+    mapped = []
+    used = {}
 
     for asm_name, value in symbols:
-        cxx_name = cpp_name(asm_name)
+        name = cpp_name(asm_name)
 
-        previous = used_names.get(cxx_name)
+        previous = used.get(name)
         if previous is not None and previous != asm_name:
             raise ValueError(
-                f"C/C++ symbol collision: '{previous}' and '{asm_name}' "
-                f"both map to '{cxx_name}'"
+                f"C++ symbol collision: "
+                f"{previous} / {asm_name} -> {name}"
             )
 
-        used_names[cxx_name] = asm_name
-        mapped_symbols.append((cxx_name, value, asm_name))
+        used[name] = asm_name
+        mapped.append((name, value, asm_name))
 
-    width = max(len(name) for name, _, _ in mapped_symbols)
+    width = max(len(name) for name, _, _ in mapped)
 
     out = [
         "#pragma once",
         "",
         "#include <cstdint>",
         "",
-        "// ------------------------------------------------------------------",
+        "// --------------------------------------------------------------",
         f"// GENERATED FILE - source: {source_name}",
         "// Do not edit by hand.",
-        "// Generated from zmac EQU/DEFL symbols.",
-        "// ------------------------------------------------------------------",
+        "// --------------------------------------------------------------",
         "",
     ]
 
-    for name, value, asm_name in mapped_symbols:
+    for name, value, asm_name in mapped:
         suffix = ""
+
         if name != asm_name:
             suffix = f"  // zmac: {asm_name}"
 
@@ -184,7 +224,7 @@ def generate_header(
     return "\n".join(out)
 
 
-def write_if_changed(path: Path, data: str) -> bool:
+def write_if_changed(path: Path, text: str) -> bool:
     old = None
 
     if path.exists():
@@ -193,7 +233,7 @@ def write_if_changed(path: Path, data: str) -> bool:
             errors="replace",
         )
 
-    if old == data:
+    if old == text:
         return False
 
     path.parent.mkdir(
@@ -202,7 +242,7 @@ def write_if_changed(path: Path, data: str) -> bool:
     )
 
     path.write_text(
-        data,
+        text,
         encoding="utf-8",
         newline="\n",
     )
@@ -212,9 +252,11 @@ def write_if_changed(path: Path, data: str) -> bool:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+
     ap.add_argument("listing", type=Path)
     ap.add_argument("inc", type=Path)
     ap.add_argument("header", type=Path)
+
     args = ap.parse_args()
 
     try:
@@ -223,7 +265,7 @@ def main() -> int:
             errors="replace",
         )
 
-        symbols = extract_equates(text)
+        symbols = extract_symbols(text)
 
         inc = generate_inc(
             symbols,
@@ -240,7 +282,7 @@ def main() -> int:
             inc,
         )
 
-        h_changed = write_if_changed(
+        header_changed = write_if_changed(
             args.header,
             header,
         )
@@ -257,7 +299,7 @@ def main() -> int:
         f"{args.inc} "
         f"({'updated' if inc_changed else 'unchanged'}), "
         f"{args.header} "
-        f"({'updated' if h_changed else 'unchanged'})"
+        f"({'updated' if header_changed else 'unchanged'})"
     )
 
     return 0
